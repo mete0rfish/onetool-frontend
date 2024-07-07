@@ -2,15 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import TopNavBar from "../components/TopNavBar";
-import {
-  Button,
-  Container,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  MainContent,
-} from "./Login";
+import { Button, Form, FormGroup, Input, Label } from "./Login";
 import { useState } from "react";
 
 const Tab = styled.div`
@@ -52,32 +44,28 @@ const Message = styled.div`
 
 const FindUserPassword = () => {
   return (
-    <Container>
-      <TopNavBar />
-      <MainContent>
-        <Tab>
-          <InnerTab to="/users/find/id" isActive={false}>
-            <span>아이디 찾기</span>
-          </InnerTab>
-          <InnerTab to="/users/find/password" isActive={true}>
-            <span>비밀번호 찾기</span>
-          </InnerTab>
-        </Tab>
-        <Form>
-          <Message>
-            회원정보의 이메일로
-            <br />
-            비밀번호 재설정 메일이 발송됩니다.
-          </Message>
-          <FormGroup>
-            <Label>아이디</Label>
-            <Input type="text" placeholder="아이디를 입력해주세요." />
-          </FormGroup>
-          <FindIdButton>이메일 발송</FindIdButton>
-        </Form>
-      </MainContent>
-      <Footer />
-    </Container>
+    <>
+      <Tab>
+        <InnerTab to="/users/find/id" isActive={false}>
+          <span>아이디 찾기</span>
+        </InnerTab>
+        <InnerTab to="/users/find/password" isActive={true}>
+          <span>비밀번호 찾기</span>
+        </InnerTab>
+      </Tab>
+      <Form>
+        <Message>
+          회원정보의 이메일로
+          <br />
+          비밀번호 재설정 메일이 발송됩니다.
+        </Message>
+        <FormGroup>
+          <Label>아이디</Label>
+          <Input type="text" placeholder="아이디를 입력해주세요." />
+        </FormGroup>
+        <FindIdButton>이메일 발송</FindIdButton>
+      </Form>
+    </>
   );
 };
 
