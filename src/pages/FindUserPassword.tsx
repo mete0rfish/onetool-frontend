@@ -11,6 +11,7 @@ import {
   Label,
   MainContent,
 } from "./Login";
+import { useState } from "react";
 
 const Tab = styled.div`
   display: flex;
@@ -41,29 +42,38 @@ const FindIdButton = styled(Button)`
   color: #ffffff;
 `;
 
-const FindUserInfo = ({ isID }: { isID: boolean }) => {
+const Message = styled.div`
+  font-weight: 700;
+  font-size: 15px;
+  text-align: center;
+  margin: 50px 0;
+  line-height: 24px;
+`;
+
+const FindUserPassword = () => {
   return (
     <Container>
       <TopNavBar />
       <MainContent>
         <Tab>
-          <InnerTab to="/users/find/id" isActive={isID}>
+          <InnerTab to="/users/find/id" isActive={false}>
             <span>아이디 찾기</span>
           </InnerTab>
-          <InnerTab to="/users/find/password" isActive={!isID}>
+          <InnerTab to="/users/find/password" isActive={true}>
             <span>비밀번호 찾기</span>
           </InnerTab>
         </Tab>
         <Form>
+          <Message>
+            회원정보의 이메일로
+            <br />
+            비밀번호 재설정 메일이 발송됩니다.
+          </Message>
           <FormGroup>
-            <Label>이름</Label>
-            <Input type="text" placeholder="이름을 입력해주세요." />
+            <Label>아이디</Label>
+            <Input type="text" placeholder="아이디를 입력해주세요." />
           </FormGroup>
-          <FormGroup>
-            <Label>전화번호</Label>
-            <Input type="text" placeholder="전화번호를 입력해주세요." />
-          </FormGroup>
-          <FindIdButton>아이디 찾기</FindIdButton>
+          <FindIdButton>이메일 발송</FindIdButton>
         </Form>
       </MainContent>
       <Footer />
@@ -71,4 +81,4 @@ const FindUserInfo = ({ isID }: { isID: boolean }) => {
   );
 };
 
-export default FindUserInfo;
+export default FindUserPassword;

@@ -5,7 +5,8 @@ import DetailedItem from "./pages/DetailedItem";
 import Login from "./pages/Login";
 import ShoppingCart from "./pages/ShoppingCart";
 import Payment from "./pages/Payment";
-import FindUserInfo from "./pages/FindUserInfo";
+import FindUserPassword from "./pages/FindUserPassword";
+import FindUserId from "./pages/FindUserId";
 
 const router = createBrowserRouter([
   {
@@ -29,11 +30,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "id",
-        element: <FindUserInfo isID={true} />,
+        element: <FindUserId />,
       },
       {
         path: "password",
-        element: <FindUserInfo isID={false} />,
+        element: <FindUserPassword />,
       },
     ],
   },
