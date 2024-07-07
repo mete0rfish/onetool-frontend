@@ -5,7 +5,12 @@ import DetailedItem from "./pages/DetailedItem";
 import Login from "./pages/Login";
 import ShoppingCart from "./pages/ShoppingCart";
 import Payment from "./pages/Payment";
-import FindUserInfo from "./pages/FindUserInfo";
+import FindUserPassword from "./pages/FindUserPassword";
+import FindUserId from "./pages/FindUserId";
+import FAQ from "./pages/FAQ";
+import FAQDetail from "./pages/FAQDetail";
+import CenterLayout from "./components/CenterLayout";
+import WriteFAQ from "./pages/WriteFAQ";
 
 const router = createBrowserRouter([
   {
@@ -20,23 +25,28 @@ const router = createBrowserRouter([
     path: "/items/:id",
     element: <DetailedItem />,
   },
+  // main page
+
   {
-    path: "/users/login",
-    element: <Login />,
-  },
-  {
-    path: "/users/find",
+    path: "/users",
+    element: <CenterLayout />,
     children: [
       {
-        path: "id",
-        element: <FindUserInfo isID={true} />,
+        path: "login",
+        element: <Login />,
       },
       {
-        path: "password",
-        element: <FindUserInfo isID={false} />,
+        path: "find/id",
+        element: <FindUserId />,
+      },
+      {
+        path: "find/password",
+        element: <FindUserPassword />,
       },
     ],
   },
+  // auth, login, find page
+
   {
     path: "/cart",
     element: <ShoppingCart />,
@@ -45,6 +55,25 @@ const router = createBrowserRouter([
     path: "/payment",
     element: <Payment />,
   },
+  {
+    path: "/faq",
+    element: <CenterLayout />,
+    children: [
+      {
+        path: "",
+        element: <FAQ />,
+      },
+      {
+        path: "write",
+        element: <WriteFAQ />,
+      },
+      {
+        path: ":id",
+        element: <FAQDetail />,
+      },
+    ],
+  },
+  //faq page
 ]);
 
 export default router;
