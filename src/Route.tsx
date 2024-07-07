@@ -5,6 +5,7 @@ import DetailedItem from "./pages/DetailedItem";
 import Login from "./pages/Login";
 import ShoppingCart from "./pages/ShoppingCart";
 import Payment from "./pages/Payment";
+import FindUserInfo from "./pages/FindUserInfo";
 
 const router = createBrowserRouter([
   {
@@ -20,8 +21,21 @@ const router = createBrowserRouter([
     element: <DetailedItem />,
   },
   {
-    path: "/login",
+    path: "/users/login",
     element: <Login />,
+  },
+  {
+    path: "/users/find",
+    children: [
+      {
+        path: "id",
+        element: <FindUserInfo isID={true} />,
+      },
+      {
+        path: "password",
+        element: <FindUserInfo isID={false} />,
+      },
+    ],
   },
   {
     path: "/cart",

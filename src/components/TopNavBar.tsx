@@ -40,7 +40,7 @@ const TopNavBar = () => {
       <SearchBar type="text" placeholder="어떤 도면을 찾고 계신가요?" />
       <Icons>
         <IconLink to="/cart">🛒</IconLink>
-        <IconLink to="/login">👤</IconLink>
+        <IconLink to="/users/login">👤</IconLink>
       </Icons>
     </TopNavBarContainer>
   );

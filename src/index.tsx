@@ -4,12 +4,7 @@ import router from "./Route";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-@font-face {
-  font-family: 'ONE-Mobile-POP';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -22,7 +17,7 @@ fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
-main, menu, nav, output, ruby, section, summary,
+main, menu, nav, section, summary,
 time, mark, audio, video {
   margin: 0;
   padding: 0;
@@ -30,9 +25,10 @@ time, mark, audio, video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
-  font-family: 'ONE-Mobile-POP', sans-serif; /* Use the new font here */
+  font-family: 'Inter', sans-serif; /* Use Inter font */
   line-height: 1.2;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, main, menu, nav, section {
@@ -67,6 +63,17 @@ table {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+button{
+  border: none;
+  outline: none;
+  background-color: inherit ;
+  cursor: pointer;
+}
+
+input{
+  outline: none;
 }
 `;
 
