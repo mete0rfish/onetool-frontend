@@ -150,7 +150,7 @@ export const CheckBoxStyled = styled.input`
 `;
 
 const ShoppingCart = () => {
-  const [isEmpty, setIsEmpty] = useState<boolean>(true);
+  const [isEmpty, setIsEmpty] = useState<boolean>(false);
   const [allChecked, setAllChecked] = useState<boolean>(false);
   const [items, setItems] = useState([
     {
