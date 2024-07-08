@@ -1,5 +1,14 @@
 import styled from "styled-components";
-import Item from "../components/Item";
+import { LuBox } from "react-icons/lu";
+import { FaPencil } from "react-icons/fa6";
+import { FaWonSign } from "react-icons/fa";
+import { FaCircleExclamation } from "react-icons/fa6";
+import { MdOutlinePayment } from "react-icons/md";
+import { BsCreditCardFill } from "react-icons/bs";
+import { MdAccountBalance } from "react-icons/md";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { FaUser } from "react-icons/fa";
 
 const Title = styled.span`
   font-size: 22px;
@@ -13,6 +22,8 @@ const Banner = styled.div`
   padding-bottom: 24px;
   width: 100%;
   margin-top: 70px;
+  display: flex;
+  gap: 6px;
 `;
 
 const Wrapper = styled.div`
@@ -113,7 +124,100 @@ const Box = styled.div`
   }
 `;
 
+const PriceWrapper = styled.div`
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const Price = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const TotalPrice = styled(Price)`
+  font-size: 14px;
+  font-weight: 700;
+`;
+
+const Discount = styled(Price)`
+  font-size: 14px;
+  font-weight: 700;
+  color: #4e4eff;
+`;
+
+const FinalPrice = styled(Price)`
+  font-size: 22px;
+  font-weight: 800;
+  border-top: 1px solid #f5f5f6;
+  border-bottom: 1px solid #f5f5f6;
+  padding: 10px 0;
+`;
+
+const CardWrapper = styled.div`
+  margin-top: 20px;
+  display: flex;
+  gap: 8px;
+`;
+
+const Card = styled.button<{ isActive: boolean }>`
+  width: 184px;
+  height: 48px;
+  border: 1px solid #8e8eff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  background-color: ${({ isActive }) => (isActive ? "#8e8eff" : "transparent")};
+`;
+
+const CheckBoxWrapper = styled.div`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  p {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 20px;
+  }
+  span {
+    font-size: 11px;
+    font-weight: 400;
+    color: #4e4eff;
+  }
+`;
+
+const PurchaseButton = styled(Link)`
+  width: 196px;
+  height: 48px;
+  border-radius: 8px;
+  background-color: #4e4eff;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+`;
+
 const Payment = () => {
+  const [cardToggle, setCardToggle] = useState(false);
+
   const items = [
     {
       image: "./img1.png",
@@ -135,6 +239,7 @@ const Payment = () => {
     <Wrapper>
       <Title>주문서</Title>
       <Banner>
+        <LuBox />
         <span>주문상품</span>
       </Banner>
       {items.map((item, index) => (
@@ -149,6 +254,7 @@ const Payment = () => {
         </CartItem>
       ))}
       <Banner>
+        <FaUser />
         <span>주문자</span>
       </Banner>
       <Form>
@@ -166,6 +272,7 @@ const Payment = () => {
         </FormGroup>
       </Form>
       <Banner>
+        <FaPencil />
         <span>사용권</span>
       </Banner>
       <BoxTitle>사용권 유형</BoxTitle>
@@ -190,22 +297,68 @@ const Payment = () => {
         </Box>
       </BoxWrapper>
       <Banner>
+        <FaWonSign />
         <span>결제 금액</span>
       </Banner>
-      <div>
-        <div>
+      <PriceWrapper>
+        <TotalPrice>
           <span>총 상품 금액</span>
           <span>{totalAmount.toLocaleString()}</span>
-        </div>
-        <div>
+        </TotalPrice>
+        <Discount>
           <span>총 할인 금액</span>
           <span>-{4000}</span>
-        </div>
-      </div>
-      <div>
+        </Discount>
+      </PriceWrapper>
+      <FinalPrice>
         <span>최종 결제 금액</span>
         <span>{(totalAmount - 4000).toLocaleString()}</span>
-      </div>
+      </FinalPrice>
+      <Banner>
+        <MdOutlinePayment />
+        <span>결제 수단</span>
+      </Banner>
+      <CardWrapper>
+        <Card onClick={() => setCardToggle(false)} isActive={!cardToggle}>
+          <BsCreditCardFill />
+          <span>신용카드</span>
+        </Card>
+        <Card onClick={() => setCardToggle(true)} isActive={cardToggle}>
+          <MdAccountBalance />
+          <span>가상계좌</span>
+        </Card>
+      </CardWrapper>
+      <Banner>
+        <FaCircleExclamation />
+        <span>유의 사항 및 구매 확인</span>
+      </Banner>
+      <CheckBoxWrapper>
+        <div>
+          <input type="checkbox" />
+          <p>
+            유의사항 및 최종사용자라이센스계약을 확인하였습니다.
+            <span> (필수)</span>
+          </p>
+        </div>
+        <div>
+          <input type="checkbox" />
+          <p>
+            구매하실 상품의 확장자 등 상품 및 결제정보를 확인하였으며,
+            구매진행에 동의합니다. <span> (필수)</span>
+          </p>
+        </div>
+        <div>
+          <input type="checkbox" />
+          <p>
+            구매한 상품은 이메일로 전송됩니다. 이메일이 정확한지 다시 한번 확인
+            하십시오.
+            <span> (필수)</span>
+          </p>
+        </div>
+      </CheckBoxWrapper>
+      <ButtonWrapper>
+        <PurchaseButton to={"/payment/success"}>주문하기</PurchaseButton>
+      </ButtonWrapper>
     </Wrapper>
   );
 };
