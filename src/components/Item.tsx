@@ -41,8 +41,8 @@ const ItemPriceDetail = styled.div`
 `;
 
 const ItemPrice = styled.span`
-  font-size: 14px;
-  color: #777;
+  font-size: 16px;
+  font-weight: 700;
 `;
 
 const Xbutton = styled(GoX)`

@@ -11,6 +11,7 @@ import FAQ from "./pages/FAQ";
 import FAQDetail from "./pages/FAQDetail";
 import CenterLayout from "./components/CenterLayout";
 import WriteFAQ from "./pages/WriteFAQ";
+import PaymentSuccess from "./pages/PaymentSuccess";
 
 const router = createBrowserRouter([
   {
@@ -59,7 +60,17 @@ const router = createBrowserRouter([
   },
   {
     path: "/payment",
-    element: <Payment />,
+    element: <CenterLayout />,
+    children: [
+      {
+        path: "",
+        element: <Payment />,
+      },
+      {
+        path: "success",
+        element: <PaymentSuccess />,
+      },
+    ],
   },
   {
     path: "/faq",

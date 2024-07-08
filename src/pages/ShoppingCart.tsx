@@ -1,7 +1,40 @@
 import { useState } from "react";
+import { BsCart4 } from "react-icons/bs";
 import styled from "styled-components";
 import Item from "../components/Item";
 import { Link } from "react-router-dom";
+
+const Circle = styled.div`
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background-color: #3e3e3e3e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 64px;
+`;
+
+const Empty = styled.span`
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 8px;
+`;
+const Go = styled.span`
+  font-size: 14px;
+  font-weight: 600;
+  color: #7c7c7c;
+  margin-bottom: 12px;
+`;
+
+const FamLink = styled(Link)`
+  font-size: 16px;
+  font-weight: 600;
+  border: 1px solid black;
+  padding: 13px 23px;
+  border-radius: 6px;
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -117,7 +150,7 @@ export const CheckBoxStyled = styled.input`
 `;
 
 const ShoppingCart = () => {
-  const [isEmpty, setIsEmpty] = useState<boolean>(false);
+  const [isEmpty, setIsEmpty] = useState<boolean>(true);
   const [allChecked, setAllChecked] = useState<boolean>(false);
   const [items, setItems] = useState([
     {
@@ -160,12 +193,12 @@ const ShoppingCart = () => {
     <div>
       {isEmpty ? (
         <Wrapper>
-          <Title>장바구니</Title>
-          <SelectButtons>
-            <CheckBoxStyled type="checkbox" onChange={ToggleAllChecked} />
-            <Label>전체선택</Label>
-          </SelectButtons>
-          <div>장바구니가 비어있어요.</div>
+          <Circle>
+            <BsCart4 />
+          </Circle>
+          <Empty>장바구니가 비어있어요.</Empty>
+          <Go>지금 담으러 가볼까요?</Go>
+          <FamLink to={"/items"}>인기 작품 구경 가기 &rarr;</FamLink>
         </Wrapper>
       ) : (
         <Wrapper>
