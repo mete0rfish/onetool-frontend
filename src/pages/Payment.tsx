@@ -89,6 +89,30 @@ const Input = styled.input`
   border: 1px solid #dbe0e4;
 `;
 
+const BoxTitle = styled.span`
+  margin: 24px 0;
+`;
+
+const BoxWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+
+const Box = styled.div`
+  width: 294px;
+  height: 218px;
+  padding: 25px;
+  border: 1px solid #4e4eff;
+  border-radius: 4px;
+  background-color: #4e4eff0a;
+  span {
+    margin-left: 8px;
+  }
+  p {
+    margin-top: 20px;
+  }
+`;
+
 const Payment = () => {
   const items = [
     {
@@ -104,6 +128,9 @@ const Payment = () => {
       checked: false,
     },
   ];
+
+  const totalAmount = items.reduce((total, item) => total + item.price, 0);
+
   return (
     <Wrapper>
       <Title>주문서</Title>
@@ -141,7 +168,44 @@ const Payment = () => {
       <Banner>
         <span>사용권</span>
       </Banner>
-      <span>사용권 유형</span>
+      <BoxTitle>사용권 유형</BoxTitle>
+      <BoxWrapper>
+        <Box>
+          <input type="radio" />
+          <span>개인 사용권</span>
+          <p>
+            필명이 작품에 반드시 표시되어야 해요. 본인만 사용 가능하고, 공유할
+            수 없어요. 여러 작품에 사용 가능해요. 작품마다 다 른 필명을 사용할
+            경우, 모든 필명을 입력 해주세요.
+          </p>
+        </Box>
+        <Box>
+          <input type="radio" />
+          <span>기업 사용권</span>
+          <p>
+            등록한 1개의 작품에만 사용할 수 있어 요. 등록한 작품명과 실제 사용
+            작품명이 반 드시 일치해야 해요. 등록한 작품을 작업하는 모든 작가가
+            사 용할 수 있어요.
+          </p>
+        </Box>
+      </BoxWrapper>
+      <Banner>
+        <span>결제 금액</span>
+      </Banner>
+      <div>
+        <div>
+          <span>총 상품 금액</span>
+          <span>{totalAmount.toLocaleString()}</span>
+        </div>
+        <div>
+          <span>총 할인 금액</span>
+          <span>-{4000}</span>
+        </div>
+      </div>
+      <div>
+        <span>최종 결제 금액</span>
+        <span>{(totalAmount - 4000).toLocaleString()}</span>
+      </div>
     </Wrapper>
   );
 };
