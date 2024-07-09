@@ -8,10 +8,9 @@ interface CategoryProps {
 
 const SidebarContainer = styled.div`
   width: 280px;
-  height: 2808px;
-  background-color: #f4f4f4;
+  height: 2500px;
   padding: 24px 40px 48px 40px;
-  border: 1px solid red;
+  margin-left: -10px;
 `;
 
 const HorizontalBorder = styled.div`
@@ -34,7 +33,6 @@ const CategoryContainer = styled.div`
   width: 200px;
   height: 872px;
   padding: 0px 0px 30px 0px;
-  border: 1px solid green;
 `;
 
 const MainCategoryContainer = styled.div`
