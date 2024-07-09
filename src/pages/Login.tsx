@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 import TopNavBar from "../components/TopNavBar";
 import { Link } from "react-router-dom";
+import Input from "../components/Input";
 
 export const Form = styled.form`
   display: flex;
@@ -35,13 +36,6 @@ const Option = styled.div`
 const OptionLabel = styled(Link)`
   font-size: 13px;
   font-weight: 400;
-`;
-
-export const Input = styled.input`
-  width: 343px;
-  height: 40px;
-  padding: 8px;
-  border: 1px solid #dbe0e4;
 `;
 
 export const Button = styled.button`

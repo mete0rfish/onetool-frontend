@@ -12,6 +12,7 @@ import FAQDetail from "./pages/FAQDetail";
 import CenterLayout from "./components/CenterLayout";
 import WriteFAQ from "./pages/WriteFAQ";
 import PaymentSuccess from "./pages/PaymentSuccess";
+import Join from "./pages/Join";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "find/password",
         element: <FindUserPassword />,
+      },
+      {
+        path: "join",
+        element: <Join />,
       },
     ],
   },
