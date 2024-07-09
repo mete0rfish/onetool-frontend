@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import TopNavBar from "../components/TopNavBar";
-import { Button, Form, FormGroup, Input, Label } from "./Login";
+import { Button, Form, FormGroup, Label } from "./Login";
 import { useState } from "react";
+import Input from "../components/Input";
 
 const Tab = styled.div`
   display: flex;
