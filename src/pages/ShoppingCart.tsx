@@ -4,6 +4,13 @@ import styled from "styled-components";
 import Item from "../components/Item";
 import { Link } from "react-router-dom";
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 const Circle = styled.div`
   width: 140px;
   height: 140px;
@@ -190,7 +197,7 @@ const ShoppingCart = () => {
   const finalAmount = totalAmount - discount;
 
   return (
-    <div>
+    <Container>
       {isEmpty ? (
         <Wrapper>
           <Circle>
@@ -243,7 +250,7 @@ const ShoppingCart = () => {
           </MainSection>
         </Wrapper>
       )}
-    </div>
+    </Container>
   );
 };
 

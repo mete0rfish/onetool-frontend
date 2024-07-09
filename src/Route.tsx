@@ -13,6 +13,7 @@ import CenterLayout from "./components/CenterLayout";
 import WriteFAQ from "./pages/WriteFAQ";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import Join from "./pages/Join";
+import Profile from "./pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -49,8 +50,13 @@ const router = createBrowserRouter([
         path: "join",
         element: <Join />,
       },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
     ],
   },
+
   // auth, login, find page
 
   {

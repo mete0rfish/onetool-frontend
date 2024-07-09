@@ -6,6 +6,13 @@ import { Button, Form, FormGroup, Label } from "./Login";
 import { useState } from "react";
 import Input from "../components/Input";
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Tab = styled.div`
   display: flex;
   justify-content: center;
@@ -54,7 +61,7 @@ const FindUserId = () => {
   // test목적으로 사용됨.
 
   return (
-    <>
+    <Container>
       <Tab>
         <InnerTab to="/users/find/id" isActive={true}>
           <span>아이디 찾기</span>
@@ -82,7 +89,7 @@ const FindUserId = () => {
           <FindIdButton onClick={onClick}>아이디 찾기</FindIdButton>
         </Form>
       )}
-    </>
+    </Container>
   );
 };
 
