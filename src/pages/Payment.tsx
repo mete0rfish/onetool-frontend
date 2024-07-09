@@ -7,7 +7,7 @@ import { MdOutlinePayment } from "react-icons/md";
 import { BsCreditCardFill } from "react-icons/bs";
 import { MdAccountBalance } from "react-icons/md";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 
 const Title = styled.span`
@@ -109,13 +109,16 @@ const BoxWrapper = styled.div`
   gap: 20px;
 `;
 
-const Box = styled.div`
+const Box = styled.div<{ isActive: boolean }>`
   width: 294px;
   height: 218px;
   padding: 25px;
-  border: 1px solid #4e4eff;
+  border: ${(props) =>
+    props.isActive ? "1px solid #4e4eff" : "1px solid #A2A2A4"};
   border-radius: 4px;
-  background-color: #4e4eff0a;
+  background-color: ${(props) =>
+    props.isActive ? "#4e4eff0a" : "transparent"};
+  cursor: pointer;
   span {
     margin-left: 8px;
   }
@@ -164,7 +167,8 @@ const CardWrapper = styled.div`
 const Card = styled.button<{ isActive: boolean }>`
   width: 184px;
   height: 48px;
-  border: 1px solid #8e8eff;
+  border: ${(props) =>
+    props.isActive ? "1px solid #8e8eff" : "1px solid #A2A2A4"};
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -196,7 +200,7 @@ const CheckBoxWrapper = styled.div`
   }
 `;
 
-const PurchaseButton = styled(Link)`
+const PurchaseButton = styled.button`
   width: 196px;
   height: 48px;
   border-radius: 8px;
@@ -214,6 +218,12 @@ const ButtonWrapper = styled.div`
   justify-content: center;
   margin-top: 100px;
 `;
+
+interface CheckedItems {
+  terms: boolean;
+  productInfo: boolean;
+  emailConfirm: boolean;
+}
 
 const Payment = () => {
   const [cardToggle, setCardToggle] = useState(false);
@@ -234,6 +244,41 @@ const Payment = () => {
   ];
 
   const totalAmount = items.reduce((total, item) => total + item.price, 0);
+  const [personState, setPersonState] = useState<boolean>(true);
+  const [institutionState, setInstitutionState] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  const toggle = () => {
+    setPersonState((prev) => !prev);
+    setInstitutionState((prev) => !prev);
+  };
+
+  const [checkedItems, setCheckedItems] = useState<CheckedItems>({
+    terms: false,
+    productInfo: false,
+    emailConfirm: false,
+  });
+
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = event.target;
+    setCheckedItems((prevState) => ({
+      ...prevState,
+      [name]: checked,
+    }));
+  };
+
+  const handlePurchaseClick = () => {
+    if (!isAllChecked()) {
+      alert("유의사항에 전부 동의해주세요!");
+    } else {
+      // 주문 성공 페이지로 이동
+      navigate("/payment/success");
+    }
+  };
+
+  const isAllChecked = () => {
+    return Object.values(checkedItems).every(Boolean);
+  };
 
   return (
     <Wrapper>
@@ -277,8 +322,8 @@ const Payment = () => {
       </Banner>
       <BoxTitle>사용권 유형</BoxTitle>
       <BoxWrapper>
-        <Box>
-          <input type="radio" />
+        <Box onClick={toggle} isActive={personState}>
+          <input type="radio" checked={personState} onChange={toggle} />
           <span>개인 사용권</span>
           <p>
             필명이 작품에 반드시 표시되어야 해요. 본인만 사용 가능하고, 공유할
@@ -286,8 +331,8 @@ const Payment = () => {
             경우, 모든 필명을 입력 해주세요.
           </p>
         </Box>
-        <Box>
-          <input type="radio" />
+        <Box onClick={toggle} isActive={institutionState}>
+          <input type="radio" checked={institutionState} onChange={toggle} />
           <span>기업 사용권</span>
           <p>
             등록한 1개의 작품에만 사용할 수 있어 요. 등록한 작품명과 실제 사용
@@ -334,21 +379,36 @@ const Payment = () => {
       </Banner>
       <CheckBoxWrapper>
         <div>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            name="terms"
+            checked={checkedItems.terms}
+            onChange={handleCheckboxChange}
+          />
           <p>
             유의사항 및 최종사용자라이센스계약을 확인하였습니다.
             <span> (필수)</span>
           </p>
         </div>
         <div>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            name="productInfo"
+            checked={checkedItems.productInfo}
+            onChange={handleCheckboxChange}
+          />
           <p>
             구매하실 상품의 확장자 등 상품 및 결제정보를 확인하였으며,
             구매진행에 동의합니다. <span> (필수)</span>
           </p>
         </div>
         <div>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            name="emailConfirm"
+            checked={checkedItems.emailConfirm}
+            onChange={handleCheckboxChange}
+          />
           <p>
             구매한 상품은 이메일로 전송됩니다. 이메일이 정확한지 다시 한번 확인
             하십시오.
@@ -357,7 +417,7 @@ const Payment = () => {
         </div>
       </CheckBoxWrapper>
       <ButtonWrapper>
-        <PurchaseButton to={"/payment/success"}>주문하기</PurchaseButton>
+        <PurchaseButton onClick={handlePurchaseClick}>주문하기</PurchaseButton>
       </ButtonWrapper>
     </Wrapper>
   );
