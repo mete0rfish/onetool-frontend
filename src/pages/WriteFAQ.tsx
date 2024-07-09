@@ -2,6 +2,13 @@ import styled from "styled-components";
 import { Title, Wrapper } from "./FAQ";
 import { Link } from "react-router-dom";
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 const FAQForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -40,7 +47,7 @@ export const BackLink = styled(Link)`
 
 const WriteFAQ = () => {
   return (
-    <>
+    <Container>
       <Title>문의사항</Title>
       <Wrapper>
         <FAQForm>
@@ -52,7 +59,7 @@ const WriteFAQ = () => {
         <UploadButton>업로드하기</UploadButton>
         <BackLink to={"/faq"}>&larr; 뒤로가기</BackLink>
       </Wrapper>
-    </>
+    </Container>
   );
 };
 

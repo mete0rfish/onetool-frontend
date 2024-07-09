@@ -4,6 +4,13 @@ import TopNavBar from "../components/TopNavBar";
 import { Link } from "react-router-dom";
 import Input from "../components/Input";
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -94,7 +101,7 @@ const LoginButtons = styled.div`
 
 const Login = () => {
   return (
-    <>
+    <Container>
       <Form>
         <FormGroup>
           <Label>아이디 (이메일)</Label>
@@ -149,7 +156,7 @@ const Login = () => {
           Google 계정으로 로그인
         </GoogleButton>
       </LoginButtons>
-    </>
+    </Container>
   );
 };
 

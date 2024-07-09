@@ -6,12 +6,12 @@ const Container = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 343px;
+  width: 100%;
   gap: 44px;
 `;
 
 const SnsWrapper = styled.div`
-  width: 100%;
+  width: 343px;
   display: flex;
   flex-direction: column;
   align-items: center;
