@@ -384,9 +384,10 @@ const Payment = () => {
             name="terms"
             checked={checkedItems.terms}
             onChange={handleCheckboxChange}
+            required={true}
           />
           <p>
-            유의사항 및 최종사용자라이센스계약을 확인하였습니다.
+            유의사항 및 최종 사용자 라이센스계약을 확인하였습니다.
             <span> (필수)</span>
           </p>
         </div>
@@ -396,6 +397,7 @@ const Payment = () => {
             name="productInfo"
             checked={checkedItems.productInfo}
             onChange={handleCheckboxChange}
+            required={true}
           />
           <p>
             구매하실 상품의 확장자 등 상품 및 결제정보를 확인하였으며,
@@ -408,6 +410,7 @@ const Payment = () => {
             name="emailConfirm"
             checked={checkedItems.emailConfirm}
             onChange={handleCheckboxChange}
+            required={true}
           />
           <p>
             구매한 상품은 이메일로 전송됩니다. 이메일이 정확한지 다시 한번 확인

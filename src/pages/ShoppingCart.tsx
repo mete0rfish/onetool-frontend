@@ -197,6 +197,7 @@ const ShoppingCart = () => {
       setAllChecked(false);
     }
   }, [checkedItems, items]); // 전체 선택 체크박스 로직(다른 체크박스들이 전부 체크되면 전체 체크박스 체크되게)
+  // -- useEffect를 사용하지 않을 경우 setAllchecked함수 때문에 무한 rerendering이 되어버린다.
 
   const ToggleAllCheck = () => {
     if (allChecked) {

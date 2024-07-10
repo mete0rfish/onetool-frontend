@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Input from "../components/Input";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.form`
   display: flex;
@@ -122,6 +124,42 @@ const JoinButton = styled.button`
 `;
 
 const Join = () => {
+  const [checkBoxes, setCheckBoxes] = useState<string[]>([]);
+  const [allChecked, setAllChecked] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (checkBoxes.length === 3) {
+      setAllChecked(true);
+    } else {
+      setAllChecked(false);
+    }
+  }, [checkBoxes]);
+
+  const ToggleAllChecked = () => {
+    if (allChecked) {
+      setCheckBoxes([]);
+    } else {
+      setCheckBoxes(["usage", "info", "marketting"]);
+    }
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (checkBoxes.includes(e.target.name)) {
+      setCheckBoxes((prev) => prev.filter((i) => i !== e.target.name));
+    } else {
+      setCheckBoxes((prev) => [...prev, e.target.name]);
+    }
+  };
+  const onClick = () => {
+    if (checkBoxes.includes("usage") && checkBoxes.includes("info")) {
+      alert("회원가입이 완료되었습니다.");
+      navigate("/");
+    } else {
+      alert("필수항목에 모두 체크해주세요!");
+    }
+  };
+
   return (
     <Container>
       <SnsWrapper>
@@ -202,31 +240,52 @@ const Join = () => {
       </Wrapper>
       <Card>
         <CardTitleWrapper>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={allChecked}
+            onChange={ToggleAllChecked}
+          />
           <span>모든 약관을 확인하고 전체 동의합니다.</span>
         </CardTitleWrapper>
         <CardTermsWrapper>
           <div>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              name="usage"
+              required={true}
+              onChange={onChange}
+              checked={checkBoxes.includes("usage")}
+            />
             <p>
               이용약관 동의 <span>(필수)</span>
             </p>
           </div>
           <div>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              name="info"
+              required={true}
+              onChange={onChange}
+              checked={checkBoxes.includes("info")}
+            />
             <p>
               개인정보 처리방침 동의 <span>(필수)</span>
             </p>
           </div>
           <div>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              name="marketting"
+              onChange={onChange}
+              checked={checkBoxes.includes("marketting")}
+            />
             <p>
               마케팅 수신 동의 <span>(선택)</span>
             </p>
           </div>
         </CardTermsWrapper>
       </Card>
-      <JoinButton>가입하기</JoinButton>
+      <JoinButton onClick={onClick}>가입하기</JoinButton>
     </Container>
   );
 };
