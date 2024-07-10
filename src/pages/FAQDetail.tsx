@@ -1,7 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { Title, Wrapper as FAQWrapper } from "./FAQ"; // FAQ에서 export한 Title과 Wrapper를 import합니다.
-import { BackLink } from "./WriteFAQ";
+import { Link } from "react-router-dom";
+import { BackButton } from "./WriteFAQ";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
 const Answer = styled.div`
   padding: 12px;
@@ -38,7 +46,7 @@ const FAQDetail = () => {
   ];
 
   return (
-    <>
+    <Container>
       <Title>문의사항</Title>
       <FAQWrapper>
         {faqData.map((faq) => (
@@ -48,8 +56,10 @@ const FAQDetail = () => {
           </div>
         ))}
       </FAQWrapper>
-      <BackLink to={"/faq"}>&larr; 뒤로가기</BackLink>
-    </>
+      <Link to={"/faq"}>
+        <BackButton>&larr; 뒤로가기</BackButton>
+      </Link>
+    </Container>
   );
 };
 

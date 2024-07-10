@@ -38,11 +38,11 @@ const UploadButton = styled.button`
   margin-left: auto;
 `;
 
-export const BackLink = styled(Link)`
+export const BackButton = styled.button`
+  text-align: center;
   font-size: 16px;
   font-weight: 400;
   margin-top: 50px;
-  text-align: center;
 `;
 
 const WriteFAQ = () => {
@@ -57,8 +57,10 @@ const WriteFAQ = () => {
           <TextArea />
         </FAQForm>
         <UploadButton>업로드하기</UploadButton>
-        <BackLink to={"/faq"}>&larr; 뒤로가기</BackLink>
       </Wrapper>
+      <Link to={"/faq"}>
+        <BackButton>&larr; 뒤로가기</BackButton>
+      </Link>
     </Container>
   );
 };
