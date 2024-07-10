@@ -14,6 +14,7 @@ const MainContainer = styled.div`
 const ContentContainer = styled.div`
   display: flex;
   padding: 1rem;
+  border: 1px solid blue;
 `;
 
 const BannersContainer = styled.div`
