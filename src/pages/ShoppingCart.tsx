@@ -99,6 +99,9 @@ const CartSummary = styled.div`
   width: 360px;
   max-height: 400px;
   height: fit-content;
+  a {
+    width: 100%;
+  }
 `;
 
 const SummaryText = styled.div`
@@ -243,9 +246,9 @@ const ShoppingCart = () => {
                 <ToTalPrice>{formatPrice(finalAmount)}원</ToTalPrice>
               </SummaryText>
               <OrderButton>주문하기</OrderButton>
-              <ShoppingButton>
-                <Link to="/items">계속 쇼핑하기</Link>
-              </ShoppingButton>
+              <Link to="/items">
+                <ShoppingButton>계속 쇼핑하기</ShoppingButton>
+              </Link>
             </CartSummary>
           </MainSection>
         </Wrapper>
