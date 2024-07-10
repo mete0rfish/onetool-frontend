@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsCart4 } from "react-icons/bs";
 import styled from "styled-components";
 import Item from "../components/Item";
@@ -159,37 +159,28 @@ export const CheckBoxStyled = styled.input`
   margin-right: 12px;
 `;
 
+interface IItem {
+  image: string;
+  name: string;
+  price: number;
+}
+
 const ShoppingCart = () => {
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
-  const [allChecked, setAllChecked] = useState<boolean>(false);
-  const [items, setItems] = useState([
+  const [items, setItems] = useState<IItem[]>([
     {
       image: "./img1.png",
       name: "판타지 초원 환경(Fantasy GrassField)",
       price: 13000,
-      checked: false,
     },
     {
       image: "./img1.png",
       name: "판타지 초원 환경(Fantasy GrassField)",
       price: 13000,
-      checked: false,
     },
   ]);
-
-  const ToggleAllChecked = () => {
-    const newAllChecked = !allChecked;
-    setAllChecked(newAllChecked);
-    const newItems = items.map((item) => ({ ...item, checked: newAllChecked }));
-    setItems(newItems);
-  };
-
-  const toggleSingleChecked = (index: number) => {
-    const newItems = [...items];
-    newItems[index].checked = !newItems[index].checked;
-    setItems(newItems);
-    setAllChecked(newItems.every((item) => item.checked));
-  };
+  const [checkedItems, setCheckedItems] = useState<IItem[]>([]);
+  const [allChecked, setAllChecked] = useState<boolean>(false);
 
   const formatPrice = (price: number) => {
     return price.toLocaleString();
@@ -198,6 +189,31 @@ const ShoppingCart = () => {
   const totalAmount = items.reduce((total, item) => total + item.price, 0);
   const discount = 4000;
   const finalAmount = totalAmount - discount;
+
+  useEffect(() => {
+    if (checkedItems.length === items.length && items.length > 0) {
+      setAllChecked(true);
+    } else {
+      setAllChecked(false);
+    }
+  }, [checkedItems, items]); // 전체 선택 체크박스 로직(다른 체크박스들이 전부 체크되면 전체 체크박스 체크되게)
+
+  const ToggleAllCheck = () => {
+    if (allChecked) {
+      setCheckedItems([]);
+    } else {
+      setCheckedItems([...items]);
+    }
+    setAllChecked(!allChecked);
+  }; // 전체 체크박스 토글 로직 및 checkedItem리스트에 아이템들 추가
+
+  const handleCheck = (item: IItem) => {
+    if (checkedItems.includes(item)) {
+      setCheckedItems(checkedItems.filter((i) => i !== item));
+    } else {
+      setCheckedItems([...checkedItems, item]);
+    }
+  }; // 이미 체크되있던 아이템이면 filter로 거르고, 아니면 CheckedItem리스트에 추가
 
   return (
     <Container>
@@ -216,7 +232,7 @@ const ShoppingCart = () => {
           <SelectButtons>
             <CheckBoxStyled
               type="checkbox"
-              onChange={ToggleAllChecked}
+              onChange={ToggleAllCheck}
               checked={allChecked}
             />
             <Label>전체선택</Label>
@@ -227,8 +243,8 @@ const ShoppingCart = () => {
                 <Item
                   key={index}
                   item={item}
-                  checked={item.checked}
-                  onToggle={() => toggleSingleChecked(index)}
+                  checked={checkedItems.includes(item)} // 체크된 박스인지는 리스트 하나에서 관리
+                  onCheck={handleCheck}
                 />
               ))}
             </CartItems>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React from "react";
 import { GoX } from "react-icons/go";
 import styled from "styled-components";
 import { CheckBoxStyled } from "../pages/ShoppingCart";
@@ -58,24 +58,20 @@ interface IItemProps {
     price: number;
   };
   checked: boolean;
-  onToggle: () => void;
+  onCheck: (item: IItemProps["item"]) => void;
 }
 
-const Item = ({ item, checked, onToggle }: IItemProps) => {
-  const [singleChecked, setSingleChecked] = useState(checked);
-
-  const onChange = () => {
-    const newChecked = !singleChecked;
-    setSingleChecked(newChecked);
-    onToggle(); // 부모 컴포넌트로 체크 상태 업데이트를 전달
+const Item = ({ item, checked, onCheck }: IItemProps) => {
+  const handleChange = () => {
+    onCheck(item);
   };
 
   return (
     <CartItem>
       <CheckBoxStyled
         type="checkbox"
-        checked={singleChecked}
-        onChange={onChange}
+        checked={checked}
+        onChange={handleChange}
       />
       <ItemImage src={item.image} alt={item.name} />
       <ItemDetails>
