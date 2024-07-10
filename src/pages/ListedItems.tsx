@@ -9,22 +9,76 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  border: 1px solid red; /* Debug style */
 `;
 
 const ContentContainer = styled.div`
   display: flex;
-  padding: 2rem;
   flex: 1;
-  border: 1px solid blue; /* Debug style */
+  padding: 1rem;
+`;
+
+const RightContainer = styled.div`
+  width: 100%;
+`;
+
+const TextContainer = styled.div`
+  width: 100%;
+  height: 60px;
+  padding: 0px 5px 0px 0px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 36px;
+  color: #333333;
+`;
+
+const FilterContainer = styled.div`
+  width: 80%;
+  height: 30px;
+  margin-left: 30px;
+  padding: 0px 5px 0px 0px;
+  display: flex;
+  gap: 0.5rem;
+`;
+
+const FilterButton = styled.button`
+  width: 97px;
+  height: 36px;  
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+`;
+
+const ItemsCount = styled.div`
+  width: 80%;
+  height: 20px;
+  padding: 0px 5px 0px 0px;
+  margin-left: 30px;
+  margin-top: 15px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: #212B36;
 `;
 
 const ItemsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
-  width: 100%;
-  border: 1px solid green; /* Debug style */
+  width: 80%;
+  margin-top: 0px;
+  margin-left: 13px;
 `;
 
 const items = [
@@ -47,18 +101,29 @@ const items = [
 ];
 
 const ListedItems = () => {
-  console.log("ListedItems rendered");
+  const itemCount = items.length;
+
   return (
     <>
       <TopNavBar />
       <MainContainer>
         <ContentContainer>
           <LeftSidebar />
-          <ItemsGrid>
-            {items.map((item) => (
-              <ItemCard key={item.id} item={item} />
-            ))}
-          </ItemsGrid>
+          <RightContainer>
+            <TextContainer>카테고리 이름</TextContainer>
+            <FilterContainer>
+              <FilterButton>확장자 ▾</FilterButton>
+              <FilterButton>가격순 ▾</FilterButton>
+              <FilterButton>판매순 ▾</FilterButton>
+              <FilterButton>날짜순 ▾</FilterButton>
+            </FilterContainer>
+            <ItemsCount>{itemCount}개</ItemsCount>
+            <ItemsGrid>
+              {items.map((item) => (
+                <ItemCard key={item.id} item={item} />
+              ))}
+            </ItemsGrid>
+          </RightContainer>
         </ContentContainer>
         <Footer />
       </MainContainer>
