@@ -129,6 +129,68 @@ const TableRowCheckBoxDiv = styled.div`
   }
 `;
 
+const WithDrawButton = styled.button`
+  margin-top: 24px;
+  font-size: 15px;
+  font-weight: 400;
+  text-decoration: underline;
+  color: #4e4eff;
+`;
+
+const ButtonWrapper = styled.div`
+  width: 100%;
+  margin-top: 24px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Button = styled.button`
+  width: 80px;
+  height: 42px;
+  border-radius: 8px;
+  border: 1px solid #cccccc;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+`;
+
+const AcceptButton = styled(Button)`
+  color: white;
+  background-color: #0034ba;
+`;
+
+const HistoryWrapper = styled.div`
+  width: 100%;
+  margin-top: 72px;
+`;
+
+const HitoryTitle = styled.div`
+  text-align: center;
+  padding: 24px 0;
+  border-bottom: 1px solid #cdcdcd;
+`;
+
+const HistoryListBox = styled.ul`
+  width: 100%;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #fafafc;
+  border-bottom: 1px solid #eaeaea;
+`;
+
+const HistoryElementBox = styled.div`
+  width: 100%;
+  height: 89px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #eaeaea;
+`;
+
 const Profile = () => {
   return (
     <Container>
@@ -197,6 +259,39 @@ const Profile = () => {
           </div>
         </TableRowCheckBoxDiv>
       </TableRow>
+      <WithDrawButton>회원 탈퇴하기 {">>"}</WithDrawButton>
+      <ButtonWrapper>
+        <AcceptButton>수정완료</AcceptButton>
+        <Button>취소</Button>
+      </ButtonWrapper>
+      <HistoryWrapper>
+        <HitoryTitle>
+          <span>최근 주문 내역</span>
+        </HitoryTitle>
+        <HistoryListBox>
+          <li>상품 정보</li>
+          <li>주문 번호</li>
+          <li>상품 금액</li>
+          <li>주문 상태</li>
+        </HistoryListBox>
+        <HistoryElementBox>
+          <p>최근 주문 내역이 없습니다.</p>
+        </HistoryElementBox>
+      </HistoryWrapper>
+      <HistoryWrapper>
+        <HitoryTitle>
+          <span>나의 문의 내역</span>
+        </HitoryTitle>
+        <HistoryListBox>
+          <li>날짜</li>
+          <li>문의 제목</li>
+          <li>문의 내용</li>
+          <li>문의 상태</li>
+        </HistoryListBox>
+        <HistoryElementBox>
+          <p>최근 상품 문의 내역이 없습니다.</p>
+        </HistoryElementBox>
+      </HistoryWrapper>
     </Container>
   );
 };
