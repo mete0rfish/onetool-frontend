@@ -2,6 +2,11 @@ import styled from "styled-components";
 import TopNavBar from "../components/TopNavBar";
 import LeftSidebar from "../components/LeftSidebar";
 import { Link } from "react-router-dom";
+import { FcFaq } from "react-icons/fc";
+import { FaHandsHelping } from "react-icons/fa";
+import { ImNewspaper } from "react-icons/im";
+import { IoIosArrowForward } from "react-icons/io";
+import MainPageSlider from "../components/MainPageSlider";
 
 const MainContainer = styled.div`
   display: flex;
@@ -19,8 +24,8 @@ const DetailContainer = styled.div`
 
 const BannersContainer = styled.div`
   display: grid;
-  grid-template-columns: 2.5fr 1fr;
-  gap: 32px;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
 `;
 
 const Banner1 = styled.div<{ url: string }>`
@@ -66,6 +71,7 @@ const HorizontalBanners = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
+  margin-bottom: 64px;
 `;
 
 const HorizontalBannerTitle = styled.span`
@@ -125,6 +131,91 @@ const FamousProductName = styled.span`
 const FamousProductPrice = styled.span`
   font-weight: 700;
   font-size: 15px;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+`;
+
+const UseButton = styled.button`
+  width: 100%;
+  background-color: #f5f5f6;
+  border-radius: 100px;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 20px 26px;
+  font-size: 15px;
+  font-weight: 700;
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+const FaqIcon = styled(FcFaq)`
+  font-size: 44px;
+  left: 82px;
+`;
+
+const PartnerIcon = styled(FaHandsHelping)`
+  font-size: 44px;
+  left: 82px;
+  color: #fbceb1;
+`;
+
+const CurrentButton = styled(UseButton)`
+  display: flex;
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+`;
+
+const NewsPaperIcon = styled(ImNewspaper)`
+  font-size: 44px;
+  left: 82px;
+  color: #5b5b5b;
+`;
+
+const PartnerBrandWrapper = styled.div`
+  display: flex;
+  gap: 40px;
+  margin-top: 16px;
+  margin-bottom: 60px;
+`;
+
+const BrandLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const BrandLogo = styled.img`
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  margin-bottom: 18px;
+`;
+
+const BrandName = styled.span`
+  font-size: 13px;
+  font-weight: 700;
+`;
+
+const BrandProductCount = styled.span`
+  font-size: 11px;
+  color: #88888a;
 `;
 
 const MainPage = () => {
@@ -203,8 +294,51 @@ const MainPage = () => {
                 <HorizontalBannerTitle>
                   한 손에 잡히는 도구, ONETOOL 활용법
                 </HorizontalBannerTitle>
+                <ButtonWrapper>
+                  <Link to={"/faq"}>
+                    <UseButton>
+                      <span>문의사항 작성하기</span>
+                      <div>
+                        <FaqIcon />
+                        <i>&rarr;</i>
+                      </div>
+                    </UseButton>
+                  </Link>
+                  <UseButton>
+                    <span>파트너 신청하기</span>
+                    <div>
+                      <PartnerIcon />
+                      <i>&rarr;</i>
+                    </div>
+                  </UseButton>
+                </ButtonWrapper>
+                <HorizontalBannerTitle>ONETOOL 거래 현황</HorizontalBannerTitle>
+                <CurrentButton>
+                  <NewsPaperIcon />
+                  <div>
+                    <span>총 자료 수 : 2024건 이상</span>
+                    <span>누적 다운로드 수 : 1억건 이상</span>
+                  </div>
+                </CurrentButton>
               </HorizontalElementContainer>
             </HorizontalBanners>
+
+            <HorizontalBannerTitle>ONETOOL 파트너 브랜드</HorizontalBannerTitle>
+            <PartnerBrandWrapper>
+              <BrandLink to={"/search/onetool"}>
+                <BrandLogo src="/onetool-logo.png" alt="" />
+                <BrandName>ONETOOL</BrandName>
+                <BrandProductCount>20개 상품</BrandProductCount>
+              </BrandLink>
+              <BrandLink to={"/search/onetool"}>
+                <BrandLogo src="/onetool-logo.png" alt="" />
+                <BrandName>ONETOOL</BrandName>
+                <BrandProductCount>20개 상품</BrandProductCount>
+              </BrandLink>
+            </PartnerBrandWrapper>
+            <MainPageSlider title={"단독 상품!"} />
+            <MainPageSlider title={"오늘의 추천"} />
+            <MainPageSlider title={"오늘만 할인!"} />
           </DetailContainer>
         </ContentContainer>
       </MainContainer>
