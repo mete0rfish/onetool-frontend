@@ -7,6 +7,7 @@ import { FaHandsHelping } from "react-icons/fa";
 import { ImNewspaper } from "react-icons/im";
 import { IoIosArrowForward } from "react-icons/io";
 import MainPageSlider from "../components/MainPageSlider";
+import { useState } from "react";
 
 const MainContainer = styled.div`
   display: flex;
@@ -89,6 +90,20 @@ const HorizontalElementContainer = styled.div`
     object-fit: cover;
     object-position: center;
     border-radius: 16px;
+  }
+`;
+
+const SliderPreviewImg = styled.img`
+  width: 100%;
+  height: 100%;
+`;
+
+const HorizontalSliderWrapper = styled.div`
+  display: flex;
+  gap: 4px;
+  button {
+    width: 20%;
+    height: 70px;
   }
 `;
 
@@ -219,6 +234,21 @@ const BrandProductCount = styled.span`
 `;
 
 const MainPage = () => {
+  const [mainImg, setMainImg] = useState<string>("/horizontal1.jpg");
+  const [sliderImgArray, setSliderImgArray] = useState<string[]>([
+    "/horizontal1.jpg",
+    "/horizontal2.jpg",
+    "/horizontal3.jpg",
+    "/horizontal4.jpg",
+    "/horizontal5.jpg",
+  ]);
+
+  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const buttonName = e.currentTarget.name;
+    const newMainImg = sliderImgArray[parseInt(buttonName) - 1];
+    setMainImg(newMainImg);
+  };
+
   return (
     <>
       <TopNavBar />
@@ -251,15 +281,31 @@ const MainPage = () => {
                 <HorizontalBannerTitle>
                   지금 놓치면 가격이 올라가요
                 </HorizontalBannerTitle>
-                <img src="/horizontal1.png" alt="" />
+                <img src={mainImg} alt="main" decoding="async" />
+                <HorizontalSliderWrapper>
+                  {sliderImgArray.map((img, index) => (
+                    <button
+                      key={index}
+                      name={(index + 1).toString()}
+                      onClick={onClick}
+                    >
+                      <SliderPreviewImg
+                        src={img}
+                        alt={`thumbnail ${index + 1}`}
+                        decoding="async"
+                      />
+                    </button>
+                  ))}
+                </HorizontalSliderWrapper>
               </HorizontalElementContainer>
+
               <HorizontalElementContainer>
                 <HorizontalBannerTitle>
                   많은 사람들이 구매했어요
                 </HorizontalBannerTitle>
                 <FamousProductContainer>
                   <FamousProduct>
-                    <img src="/horizontal1.png" alt="" />
+                    <img src="/horizontal1.jpg" alt="" />
                     <FamousProductInfoWrapper>
                       <FamousProductTitle>네모</FamousProductTitle>
                       <FamousProductName>
@@ -269,7 +315,7 @@ const MainPage = () => {
                     </FamousProductInfoWrapper>
                   </FamousProduct>
                   <FamousProduct>
-                    <img src="/horizontal2.png" alt="" />
+                    <img src="/horizontal2.jpg" alt="" />
                     <FamousProductInfoWrapper>
                       <FamousProductTitle>네모</FamousProductTitle>
                       <FamousProductName>
@@ -279,7 +325,7 @@ const MainPage = () => {
                     </FamousProductInfoWrapper>
                   </FamousProduct>
                   <FamousProduct>
-                    <img src="/horizontal3.png" alt="" />
+                    <img src="/horizontal3.jpg" alt="" />
                     <FamousProductInfoWrapper>
                       <FamousProductTitle>네모</FamousProductTitle>
                       <FamousProductName>
@@ -336,6 +382,7 @@ const MainPage = () => {
                 <BrandProductCount>20개 상품</BrandProductCount>
               </BrandLink>
             </PartnerBrandWrapper>
+
             <MainPageSlider title={"단독 상품!"} />
             <MainPageSlider title={"오늘의 추천"} />
             <MainPageSlider title={"오늘만 할인!"} />
