@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { LuBox } from "react-icons/lu";
-import { FaPencil } from "react-icons/fa6";
+import { LuPencilLine } from "react-icons/lu";
 import { FaWonSign } from "react-icons/fa";
-import { FaCircleExclamation } from "react-icons/fa6";
+import { FaRegUser } from "react-icons/fa6";
+import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { MdOutlinePayment } from "react-icons/md";
 import { BsCreditCardFill } from "react-icons/bs";
 import { MdAccountBalance } from "react-icons/md";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { FaUser } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Title = styled.span`
   font-size: 22px;
@@ -304,7 +304,7 @@ const Payment = () => {
         </CartItem>
       ))}
       <Banner>
-        <FaUser />
+        <FaRegUser />
         <span>주문자</span>
       </Banner>
       <Form>
@@ -322,7 +322,7 @@ const Payment = () => {
         </FormGroup>
       </Form>
       <Banner>
-        <FaPencil />
+        <LuPencilLine />
         <span>사용권</span>
       </Banner>
       <BoxTitle>사용권 유형</BoxTitle>
@@ -387,7 +387,7 @@ const Payment = () => {
         </Card>
       </CardWrapper>
       <Banner>
-        <FaCircleExclamation />
+        <AiOutlineExclamationCircle />
         <span>유의 사항 및 구매 확인</span>
       </Banner>
       <CheckBoxWrapper>
