@@ -8,6 +8,7 @@ import { ImNewspaper } from "react-icons/im";
 import { IoIosArrowForward } from "react-icons/io";
 import MainPageSlider from "../components/MainPageSlider";
 import { useState } from "react";
+import MainBanner from "../components/MainBanner";
 
 const MainContainer = styled.div`
   display: flex;
@@ -27,24 +28,6 @@ const BannersContainer = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 24px;
-`;
-
-const Banner1 = styled.div<{ url: string }>`
-  width: 100%;
-  height: 274px;
-  border-radius: 16px;
-  background-color: #ddd;
-  display: flex;
-  flex-direction: column;
-  align-items: baseline;
-  justify-content: center;
-  background-image: url(${(props) => props.url});
-  background-size: cover;
-  background-position: center;
-  font-size: 26px;
-  font-weight: 700;
-  color: #ffffff;
-  padding-left: 64px;
 `;
 
 const Banner2 = styled.div`
@@ -257,10 +240,7 @@ const MainPage = () => {
           <LeftSidebar />
           <DetailContainer>
             <BannersContainer>
-              <Banner1 url="/banner1.png">
-                <p>무료 CAD 소스가 이렇게 좋다고?</p>
-                <p>킨텍스 도면 보러가기</p>
-              </Banner1>
+              <MainBanner />
               <Link
                 to={
                   "https://garrulous-bearskin-817.notion.site/ONETOOL-e7a9e586415142ab9a2f49d3b4f0146d?pvs=4"
