@@ -14,6 +14,7 @@ import WriteFAQ from "./pages/WriteFAQ";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import Join from "./pages/Join";
 import Profile from "./pages/Profile";
+import ErrorComponent from "./components/ErrorComponent";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
     path: "/users",
     element: <CenterLayout />,
     children: [
+      {
+        path: "",
+        element: <ErrorComponent />,
+      },
       {
         path: "login",
         element: <Login />,
