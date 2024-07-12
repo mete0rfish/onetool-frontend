@@ -42,7 +42,6 @@ export const BackButton = styled.button`
   text-align: center;
   font-size: 16px;
   font-weight: 400;
-  margin-top: 50px;
 `;
 
 const WriteFAQ = () => {
