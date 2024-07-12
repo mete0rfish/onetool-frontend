@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 8px;
 `;
 
 const Circle = styled.div`
@@ -37,9 +38,10 @@ const Go = styled.span`
 const FamLink = styled(Link)`
   font-size: 16px;
   font-weight: 600;
-  border: 1px solid black;
+  border: 1px solid #4e4eff;
   padding: 13px 23px;
   border-radius: 6px;
+  color: #4e4eff;
 `;
 
 const PaymentSuccess = () => {
