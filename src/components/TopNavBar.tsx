@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { PiShoppingCartSimpleBold } from "react-icons/pi";
+import { FaRegUser } from "react-icons/fa6";
 
 const TopNavBarContainer = styled.div`
   display: flex;
@@ -8,15 +10,13 @@ const TopNavBarContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   color: black;
-  padding: 0.5rem 1rem;
+  padding: 4px 40px;
   border: 1px solid #e8e8e8;
 `;
 
 const Logo = styled.img`
   width: 150px;
   height: auto;
-  margin-right: -200px;
-  margin-left: 200px;
 `;
 
 const SearchBar = styled.input`
@@ -24,7 +24,8 @@ const SearchBar = styled.input`
   height: 46px;
   border-radius: 8px;
   border: 1px solid #e8e8e8;
-  padding: 20px;
+  padding: 26px;
+  font-size: 16px;
 `;
 
 const Icons = styled.div`
@@ -38,19 +39,20 @@ const Icons = styled.div`
   justify-content: center;
 `;
 
-const IconLink = styled(Link)`
-  color: white;
-  text-decoration: none;
-`;
-
 const TopNavBar = () => {
   return (
     <TopNavBarContainer>
-      <Logo src="/logowhite.jpeg" alt="Logo" />
+      <Link to={"/"}>
+        <Logo src="/logowhite.jpeg" alt="Logo" />
+      </Link>
       <SearchBar type="text" placeholder="어떤 도면을 찾고 계신가요?" />
       <Icons>
-        <IconLink to="/cart">🛒</IconLink>
-        <IconLink to="/users/login">👤</IconLink>
+        <Link to="/cart">
+          <PiShoppingCartSimpleBold style={{ width: "22px", height: "22px" }} />
+        </Link>
+        <Link to="/users/login">
+          <FaRegUser style={{ width: "18px", height: "18px" }} />
+        </Link>
       </Icons>
     </TopNavBarContainer>
   );
