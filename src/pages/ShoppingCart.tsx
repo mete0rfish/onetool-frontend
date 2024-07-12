@@ -15,11 +15,11 @@ const Circle = styled.div`
   width: 140px;
   height: 140px;
   border-radius: 50%;
-  background-color: #3e3e3e3e;
+  background-color: #f8f8fb;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #aeaeff;
   font-size: 64px;
 `;
 
@@ -38,9 +38,10 @@ const Go = styled.span`
 const FamLink = styled(Link)`
   font-size: 16px;
   font-weight: 600;
-  border: 1px solid black;
+  border: 1px solid #4e4eff;
   padding: 13px 23px;
   border-radius: 6px;
+  color: #4e4eff;
 `;
 
 const Wrapper = styled.div`
@@ -48,6 +49,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 8px;
 `;
 
 const Title = styled.span`
@@ -166,7 +168,7 @@ interface IItem {
 }
 
 const ShoppingCart = () => {
-  const [isEmpty, setIsEmpty] = useState<boolean>(false);
+  const [isEmpty, setIsEmpty] = useState<boolean>(true); // 장바구니 비었을 때 테스트용
   const [items, setItems] = useState<IItem[]>([
     {
       image: "./img1.png",

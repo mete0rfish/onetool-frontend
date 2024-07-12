@@ -12,6 +12,7 @@ const Container = styled.div`
 const MainContent = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   flex: 1;
   padding: 50px 300px;
 `;
