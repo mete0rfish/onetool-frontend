@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Footer from "../components/Footer";
-import TopNavBar from "../components/TopNavBar";
-import { Button, Form, FormGroup, Label } from "./Login";
+import Footer from "../../components/Footer";
+import TopNavBar from "../../components/TopNavBar";
+import { Button, Form, FormGroup, Label } from "../user/Login";
 import { useState } from "react";
-import Input from "../components/Input";
+import Input from "../../components/Input";
 
 const Container = styled.div`
   display: flex;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BsCart4 } from "react-icons/bs";
 import styled from "styled-components";
-import Item from "../components/Item";
+import Item from "../../components/Item";
 import { Link } from "react-router-dom";
 
 const Container = styled.div`

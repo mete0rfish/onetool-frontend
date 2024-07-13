@@ -1,7 +1,7 @@
 import React from "react";
 import { GoX } from "react-icons/go";
 import styled from "styled-components";
-import { CheckBoxStyled } from "../pages/ShoppingCart";
+import { CheckBoxStyled } from "../pages/pay/ShoppingCart";
 
 const CartItem = styled.div`
   display: flex;

@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import TopNavBar from "../components/TopNavBar";
-import LeftSidebar from "../components/LeftSidebar";
 import { Link } from "react-router-dom";
 import { FcFaq } from "react-icons/fc";
 import { FaHandsHelping } from "react-icons/fa";
 import { ImNewspaper } from "react-icons/im";
 import { IoIosArrowForward } from "react-icons/io";
-import MainPageSlider from "../components/MainPageSlider";
 import { useState } from "react";
-import MainBanner from "../components/MainBanner";
+import TopNavBar from "../../components/TopNavBar";
+import LeftSidebar from "../../components/LeftSidebar";
+import MainBanner from "../../components/MainBanner";
+import MainPageSlider from "../../components/MainPageSlider";
 
 const MainContainer = styled.div`
   display: flex;

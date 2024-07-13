@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import TopNavBar from "../components/TopNavBar";
-import LeftSidebar from "../components/LeftSidebar";
-import ItemCard from "../components/ItemCard";
-import Footer from "../components/Footer";
+import TopNavBar from "../../components/TopNavBar";
+import LeftSidebar from "../../components/LeftSidebar";
+import ItemCard from "../../components/ItemCard";
+import Footer from "../../components/Footer";
 
 const MainContainer = styled.div`
   display: flex;
@@ -42,7 +42,7 @@ const FilterContainer = styled.div`
 
 const FilterButton = styled.button`
   width: 97px;
-  height: 36px;  
+  height: 36px;
   border: 1px solid #ccc;
   border-radius: 4px;
   gap: 8px;
@@ -69,7 +69,7 @@ const ItemsCount = styled.div`
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
-  color: #212B36;
+  color: #212b36;
 `;
 
 const ItemsGrid = styled.div`
