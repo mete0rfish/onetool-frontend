@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { FcFaq } from "react-icons/fc";
 import { FaHandsHelping } from "react-icons/fa";
 import { ImNewspaper } from "react-icons/im";
-import { IoIosArrowForward } from "react-icons/io";
 import { useState } from "react";
 import TopNavBar from "../../components/TopNavBar";
 import LeftSidebar from "../../components/LeftSidebar";

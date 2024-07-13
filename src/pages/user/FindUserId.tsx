@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Footer from "../../components/Footer";
-import TopNavBar from "../../components/TopNavBar";
-import { Button, Form, FormGroup, Label } from "../user/Login";
 import { useState } from "react";
 import Input from "../../components/Input";
+import UserForm from "./components/UserForm";
+import UserFormGroup from "./components/UserFormGroup";
+import UserLabel from "./components/UserLabel";
+import { Button } from "./Login";
 
 const Container = styled.div`
   display: flex;
@@ -77,17 +78,17 @@ const FindUserId = () => {
           <span>onetool@gmail.com</span> 입니다.
         </SuccessWrapper>
       ) : (
-        <Form>
-          <FormGroup>
-            <Label>이름</Label>
+        <UserForm>
+          <UserFormGroup>
+            <UserLabel>이름</UserLabel>
             <Input type="text" placeholder="이름을 입력해주세요." />
-          </FormGroup>
-          <FormGroup>
-            <Label>전화번호</Label>
+          </UserFormGroup>
+          <UserFormGroup>
+            <UserLabel>전화번호</UserLabel>
             <Input type="text" placeholder="전화번호를 입력해주세요." />
-          </FormGroup>
+          </UserFormGroup>
           <FindIdButton onClick={onClick}>아이디 찾기</FindIdButton>
-        </Form>
+        </UserForm>
       )}
     </Container>
   );

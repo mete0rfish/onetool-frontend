@@ -1,8 +1,7 @@
-import React from "react";
 import styled from "styled-components";
 import { Title, Wrapper as FAQWrapper } from "./FAQ"; // FAQ에서 export한 Title과 Wrapper를 import합니다.
 import { Link } from "react-router-dom";
-import { BackButton } from "./WriteFAQ";
+import FaqBackButton from "./components/FaqBackButton";
 
 const Container = styled.div`
   display: flex;
@@ -57,7 +56,7 @@ const FAQDetail = () => {
         ))}
       </FAQWrapper>
       <Link to={"/faq"}>
-        <BackButton>&larr; 뒤로가기</BackButton>
+        <FaqBackButton>&larr; 뒤로가기</FaqBackButton>
       </Link>
     </Container>
   );

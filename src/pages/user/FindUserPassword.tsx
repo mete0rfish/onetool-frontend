@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Footer from "../../components/Footer";
-import TopNavBar from "../../components/TopNavBar";
-import { Button, Form, FormGroup, Label } from "./Login";
-import { useState } from "react";
 import Input from "../../components/Input";
+import UserForm from "./components/UserForm";
+import UserFormGroup from "./components/UserFormGroup";
+import UserLabel from "./components/UserLabel";
+import { Button } from "./Login";
 
 const Tab = styled.div`
   display: flex;
@@ -54,18 +54,18 @@ const FindUserPassword = () => {
           <span>비밀번호 찾기</span>
         </InnerTab>
       </Tab>
-      <Form>
+      <UserForm>
         <Message>
           회원정보의 이메일로
           <br />
           비밀번호 재설정 메일이 발송됩니다.
         </Message>
-        <FormGroup>
-          <Label>아이디</Label>
+        <UserFormGroup>
+          <UserLabel>아이디</UserLabel>
           <Input type="text" placeholder="아이디를 입력해주세요." />
-        </FormGroup>
+        </UserFormGroup>
         <FindIdButton>이메일 발송</FindIdButton>
-      </Form>
+      </UserForm>
     </>
   );
 };
