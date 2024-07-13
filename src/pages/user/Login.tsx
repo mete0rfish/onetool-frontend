@@ -1,32 +1,15 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Input from "../../components/Input";
+import UserForm from "./components/UserForm";
+import UserFormGroup from "./components/UserFormGroup";
+import UserLabel from "./components/UserLabel";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-
-export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-`;
-
-export const FormGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-`;
-
-export const Label = styled.span`
-  font-size: 12px;
-  font-weight: 700;
 `;
 
 const Option = styled.div`
@@ -100,16 +83,16 @@ const LoginButtons = styled.div`
 const Login = () => {
   return (
     <Container>
-      <Form>
-        <FormGroup>
-          <Label>아이디 (이메일)</Label>
+      <UserForm>
+        <UserFormGroup>
+          <UserFormGroup>아이디 (이메일)</UserFormGroup>
           <Input type="text" placeholder="example@example.com" />
-        </FormGroup>
-        <FormGroup>
-          <Label>비밀번호</Label>
+        </UserFormGroup>
+        <UserFormGroup>
+          <UserLabel>비밀번호</UserLabel>
           <Input type="password" placeholder="비밀번호 입력" />
-        </FormGroup>
-      </Form>
+        </UserFormGroup>
+      </UserForm>
       <Option>
         <OptionLabel to={"/users/find/id"}>아이디 찾기</OptionLabel>|
         <OptionLabel to={"/users/find/password"}>비밀번호 찾기</OptionLabel>|

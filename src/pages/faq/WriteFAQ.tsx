@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Title, Wrapper } from "./FAQ";
 import { Link } from "react-router-dom";
+import FaqBackButton from "./components/FaqBackButton";
 
 const Container = styled.div`
   display: flex;
@@ -38,12 +39,6 @@ const UploadButton = styled.button`
   margin-left: auto;
 `;
 
-export const BackButton = styled.button`
-  text-align: center;
-  font-size: 16px;
-  font-weight: 400;
-`;
-
 const WriteFAQ = () => {
   return (
     <Container>
@@ -58,7 +53,7 @@ const WriteFAQ = () => {
         <UploadButton>업로드하기</UploadButton>
       </Wrapper>
       <Link to={"/faq"}>
-        <BackButton>&larr; 뒤로가기</BackButton>
+        <FaqBackButton>&larr; 뒤로가기</FaqBackButton>
       </Link>
     </Container>
   );

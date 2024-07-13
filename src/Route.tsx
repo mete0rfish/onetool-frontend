@@ -29,7 +29,7 @@ const router = createBrowserRouter([
     path: "/items/:id",
     element: <DetailedItem />,
   },
-  // main page
+  // home, products page
 
   {
     path: "/users",
@@ -62,7 +62,7 @@ const router = createBrowserRouter([
     ],
   },
 
-  // auth, login, find page
+  // user page
 
   {
     path: "/cart",
@@ -88,6 +88,9 @@ const router = createBrowserRouter([
       },
     ],
   },
+
+  //pay page
+
   {
     path: "/faq",
     element: <CenterLayout />,
