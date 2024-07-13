@@ -1,20 +1,20 @@
 import { createBrowserRouter } from "react-router-dom";
-import MainPage from "./pages/MainPage";
-import ListedItems from "./pages/ListedItems";
-import DetailedItem from "./pages/DetailedItem";
-import Login from "./pages/Login";
-import ShoppingCart from "./pages/ShoppingCart";
-import Payment from "./pages/Payment";
-import FindUserPassword from "./pages/FindUserPassword";
-import FindUserId from "./pages/FindUserId";
-import FAQ from "./pages/FAQ";
-import FAQDetail from "./pages/FAQDetail";
+import ListedItems from "./pages/products/ListedItems";
+import DetailedItem from "./pages/products/DetailedItem";
+import Login from "./pages/user/Login";
+import ShoppingCart from "./pages/pay/ShoppingCart";
+import Payment from "./pages/pay/Payment";
+import FindUserPassword from "./pages/user/FindUserPassword";
+import FindUserId from "./pages/user/FindUserId";
+import FAQ from "./pages/faq/FAQ";
+import FAQDetail from "./pages/faq/FAQDetail";
 import CenterLayout from "./components/CenterLayout";
-import WriteFAQ from "./pages/WriteFAQ";
-import PaymentSuccess from "./pages/PaymentSuccess";
-import Join from "./pages/Join";
-import Profile from "./pages/Profile";
+import WriteFAQ from "./pages/faq/WriteFAQ";
+import PaymentSuccess from "./pages/pay/PaymentSuccess";
+import Join from "./pages/user/Join";
+import Profile from "./pages/user/Profile";
 import ErrorComponent from "./components/ErrorComponent";
+import MainPage from "./pages/home/MainPage";
 
 const router = createBrowserRouter([
   {

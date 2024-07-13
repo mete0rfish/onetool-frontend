@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Input from "../components/Input";
+import Input from "../../components/Input";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 

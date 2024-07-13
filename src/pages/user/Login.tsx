@@ -1,8 +1,6 @@
 import styled from "styled-components";
-import Footer from "../components/Footer";
-import TopNavBar from "../components/TopNavBar";
 import { Link } from "react-router-dom";
-import Input from "../components/Input";
+import Input from "../../components/Input";
 
 const Container = styled.div`
   display: flex;
