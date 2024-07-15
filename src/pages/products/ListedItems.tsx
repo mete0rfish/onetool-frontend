@@ -13,7 +13,6 @@ const MainContainer = styled.div`
 const ContentContainer = styled.div`
   display: flex;
   flex: 1;
-  padding: 1rem;
 `;
 
 const RightContainer = styled.div`
@@ -28,6 +27,8 @@ const TextContainer = styled.div`
   font-size: 24px;
   line-height: 36px;
   color: #333333;
+  margin-left: 30px;
+  margin-top: 15px;
 `;
 
 const FilterContainer = styled.div`
@@ -73,7 +74,7 @@ const ItemsCount = styled.div`
 
 const ItemsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 1rem;
   width: 80%;
   margin-top: 0px;
@@ -116,7 +117,7 @@ const ListedItems = () => {
               <FilterButton>판매순 ▾</FilterButton>
               <FilterButton>날짜순 ▾</FilterButton>
             </FilterContainer>
-            <ItemsCount>{itemCount}개</ItemsCount>
+            <ItemsCount>총 {itemCount}개</ItemsCount>
             <ItemsGrid>
               {items.map((item) => (
                 <ItemCard key={item.id} item={item} />
