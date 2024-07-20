@@ -34,8 +34,8 @@ const FirstContainer = styled.div`
 `;
 
 const ImageContainer = styled.div`
-width: 780px;
-height: 595px;
+  width: 780px;
+  height: 595px;
   border: 1px solid #ccc;
   display: flex;
   align-items: center;
@@ -61,17 +61,17 @@ const InfoContainer = styled.div`
 `;
 
 const CompanyName = styled.div`
-height: 20px;
-gap: 4px;
-font-weight: 400;
-font-size: 13.13px;
-line-height: 20px;
-color: #88888A;
+  height: 20px;
+  gap: 4px;
+  font-weight: 400;
+  font-size: 13.13px;
+  line-height: 20px;
+  color: #88888A;
 `;
 
 const ItemName = styled.div`
-height: 38px;
-padding: 7px 0px 0px 0px;
+  height: 38px;
+  padding: 7px 0px 0px 0px;
   font-weight: 700;
   font-size: 20.8px;
   line-height: 30.8px;
@@ -104,7 +104,7 @@ const SalePercentage = styled.div`
   font-weight: 800;
   font-size: 28px;
   line-height: 33px;
-  color: #FF5C00
+  color: #FF5C00;
 `;
 
 const CurrentPrice = styled.div`
@@ -126,42 +126,68 @@ const SaleTimer = styled.div`
 `;
 
 const TextBox = styled.div`
-height: 26px;
-font-weight: 700;
-font-size: 15.13px;
-line-height: 25.6px;
-color: #313135;
+  height: 26px;
+  font-weight: 700;
+  font-size: 15.13px;
+  line-height: 25.6px;
+  color: #313135;
 `;
 
 const InnerTextBox = styled.div`
-height: 22px;
-font-weight: 500;
-font-size: 13.23px;
-line-height: 22px;
-color: #00000087;
-
+  height: 22px;
+  font-weight: 500;
+  font-size: 13.23px;
+  line-height: 22px;
+  color: #00000087;
 `;
 
 const Tags = styled.div`
-  font-size: 1rem;
-  color: #555;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   margin: -10px 0px 16px 0px;
+`;
+
+const Tag = styled.div`
+  padding: 5px 7px;
+  border: 1px solid #88888A;
+  border-radius: 11px;
+  font-size: 14px;
+  color: #313135;
+
+  font-weight: 400;
+  font-size: 11.44px;
+  line-height: 12px;
+  color: #4C4C50;
+`;
+
+const CompatibleProgramsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: -10px 0px 16px 0px;
+`;
+
+const CompatibleProgram = styled.div`
+  padding: 4px 6px;
+  border: 1px solid #88888A;
+  border-radius: 4px;
+  gap: 4px;
+  font-size: 14px;
+  color: #313135;
+  font-weight: 400;
+  font-size: 11.44px;
+  line-height: 12px;
+  color: #4C4C50;
 `;
 
 const FileExtension = styled.div`
   height: 14px;
   margin: -10px 0px 16px 0px;
-  
   font-weight: 400;
   font-size: 13.45px;
   line-height: 14px;
   color: #6D6D70;
-`;
-
-const CompatiblePrograms = styled.div`
-  font-size: 1rem;
-  color: #555;
-  margin: -10px 0px 16px 0px;
 `;
 
 const ButtonsContainer = styled.div`
@@ -189,9 +215,10 @@ const BuyButton = styled.button`
     background-color: #0056b3;
   }
 `;
+
 const CartButton = styled.button`
   height: 40px;
-  padding: 10px, 37.29px, 10px, 37.3px;
+  padding: 10px 37.29px;
   cursor: pointer;
   border-radius: 8px;
   gap: 8px;
@@ -224,8 +251,10 @@ const ThirdContainer = styled.div`
 `;
 
 const SuggestionsTitle = styled.div`
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 700;
+  font-size: 20.63px;
+  line-height: 33px;
+  color: #313135;
 `;
 
 const SuggestionsGrid = styled.div`
@@ -235,6 +264,8 @@ const SuggestionsGrid = styled.div`
 `;
 
 const DetailedItem = () => {
+  const tags = ["건축", "인테리어 도면"];
+  const compatiblePrograms = ["SketchUp", "AutoCAD"];
   const otherItems = [
     { id: 1, name: "Other Item 1", image: "https://via.placeholder.com/150" },
     { id: 2, name: "Other Item 2", image: "https://via.placeholder.com/150" },
@@ -246,50 +277,58 @@ const DetailedItem = () => {
     <>
       <TopNavBar />
       <OuterContainer>
-      <MainContainer>
-        <CategoryContainer>건축-주거 | 인테리어-주거</CategoryContainer>
-        <FirstContainer>
-          <ImageContainer>
-            <img src="https://via.placeholder.com/500" alt="Big Item" />
-          </ImageContainer>
-          <RightContainer>
-          
+        <MainContainer>
+          <CategoryContainer>건축-주거 | 인테리어-주거</CategoryContainer>
+          <FirstContainer>
+            <ImageContainer>
+              <img src="" alt="Big Item" />
+            </ImageContainer>
+            <RightContainer>
               <CompanyName>ONETOOL 회사명</CompanyName>
               <ItemName>건축 도면</ItemName>
               <PriceContainer>
-              <OriginalPrice>80000원</OriginalPrice>
-              <PriceBox><SalePercentage>30%</SalePercentage>
-              <CurrentPrice>56000원</CurrentPrice></PriceBox>
-              <SaleTimer>남은 시간 2일 10:13:50</SaleTimer>
-            </PriceContainer>
-            
-            <InfoContainer>
-            <TextBox>상품정보</TextBox>
-            <InnerTextBox>태그</InnerTextBox>
-              <Tags>건축, 인테리어 도면</Tags>
-            <InnerTextBox>파일 확장자</InnerTextBox>
-              <FileExtension>skp / dwg</FileExtension>
-              <InnerTextBox>사용 가능 프로그램</InnerTextBox>
-              <CompatiblePrograms>SketchUp, AutoCAD</CompatiblePrograms>
-            </InfoContainer>
-            <ButtonsContainer>
-              <BuyButton>구매하기</BuyButton>
-              <CartButton>장바구니</CartButton>
-            </ButtonsContainer>
-          </RightContainer>
-        </FirstContainer>
-        <SecondContainer>
-          {/* Specific details of the item go here */}
-        </SecondContainer>
-        <ThirdContainer>
-          <SuggestionsTitle>작가님의 다른 도면들이에요!</SuggestionsTitle>
-          <SuggestionsGrid>
-            {otherItems.map((item) => (
-              <ItemCard key={item.id} item={item} />
-            ))}
-          </SuggestionsGrid>
-        </ThirdContainer>
-      </MainContainer>
+                <OriginalPrice>80000원</OriginalPrice>
+                <PriceBox>
+                  <SalePercentage>30%</SalePercentage>
+                  <CurrentPrice>56000원</CurrentPrice>
+                </PriceBox>
+                <SaleTimer>남은 시간 2일 10:13:50</SaleTimer>
+              </PriceContainer>
+              <InfoContainer>
+                <TextBox>상품정보</TextBox>
+                <InnerTextBox>태그</InnerTextBox>
+                <Tags>
+                  {tags.map((tag, index) => (
+                    <Tag key={index}>{tag}</Tag>
+                  ))}
+                </Tags>
+                <InnerTextBox>파일 확장자</InnerTextBox>
+                <FileExtension>skp / dwg</FileExtension>
+                <InnerTextBox>사용 가능 프로그램</InnerTextBox>
+                <CompatibleProgramsContainer>
+                  {compatiblePrograms.map((program, index) => (
+                    <CompatibleProgram key={index}>{program}</CompatibleProgram>
+                  ))}
+                </CompatibleProgramsContainer>
+              </InfoContainer>
+              <ButtonsContainer>
+                <BuyButton>구매하기</BuyButton>
+                <CartButton>장바구니</CartButton>
+              </ButtonsContainer>
+            </RightContainer>
+          </FirstContainer>
+          <SecondContainer>
+            {/* Specific details of the item go here */}
+          </SecondContainer>
+          <ThirdContainer>
+            <SuggestionsTitle>작가님의 다른 도면들이에요 </SuggestionsTitle>
+            <SuggestionsGrid>
+              {otherItems.map((item) => (
+                <ItemCard key={item.id} item={item} />
+              ))}
+            </SuggestionsGrid>
+          </ThirdContainer>
+        </MainContainer>
       </OuterContainer>
       <Footer />
     </>
@@ -297,4 +336,3 @@ const DetailedItem = () => {
 };
 
 export default DetailedItem;
-
