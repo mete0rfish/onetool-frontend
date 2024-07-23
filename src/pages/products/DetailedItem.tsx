@@ -94,12 +94,14 @@ const OriginalPrice = styled.div`
   color: #88888A;
   text-decoration: line-through;
 `;
+
 const PriceBox = styled.div`
   display: flex;
   flex-direction: row;
   height: 33px;
   gap: 6px;
 `;
+
 const SalePercentage = styled.div`
   font-weight: 800;
   font-size: 28px;
@@ -238,9 +240,59 @@ const CartButton = styled.button`
 const SecondContainer = styled.div`
   width: 80%;
   height: 1000px;
-  border: 1px solid red;
   padding: 1rem;
-  margin: 50px;
+  margin: 50px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ToggleBar = styled.div`
+  width: 1200px;
+  height: 47px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #ccc;
+`;
+
+const ToggleButton = styled.button`
+  padding: 10px 20px;
+  cursor: pointer;
+
+  font-weight: 800;
+  font-size: 15.13px;
+  line-height: 24px;
+  color: #A2A2A4;
+
+  &:hover {
+    color: #313135;
+    border-bottom: 2px solid #313135;
+  }
+`;
+
+const BlueBox = styled.div`
+  width: 1200px;
+  height: 72px;
+  border-radius: 8px;
+  padding: 16px 24px;
+  gap: 16px;
+  background-color: #ECF9FD;
+  font-weight: 600;
+  font-size: 13.13px;
+  line-height: 20px;
+  color: #07AFE4;
+`;
+
+const MainBanner = styled.div`
+  width: 100%;
+  margin: 50px 0px;
+  height: 500px;
+  border: 1px solid red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #004d40;
+  font-size: 24px;
+  font-weight: bold;
 `;
 
 const ThirdContainer = styled.div`
@@ -318,7 +370,13 @@ const DetailedItem = () => {
             </RightContainer>
           </FirstContainer>
           <SecondContainer>
-            {/* Specific details of the item go here */}
+            <ToggleBar>
+              <ToggleButton>상세설명</ToggleButton>
+              <ToggleButton>상품문의</ToggleButton>
+            </ToggleBar>
+            <BlueBox>안심하고 사용하실 수 있도록 저작권과 유의사항을 확인받은 상품이에요<br/>자세한 내용은 구매 전 꼭 확인해 주세요</BlueBox>
+            <MainBanner>Main Banner Content</MainBanner>
+           
           </SecondContainer>
           <ThirdContainer>
             <SuggestionsTitle>작가님의 다른 도면들이에요 </SuggestionsTitle>
