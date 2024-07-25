@@ -17,6 +17,7 @@ const ContentContainer = styled.div`
 
 const RightContainer = styled.div`
   width: 100%;
+  margin-left: 40px;
 `;
 
 const TextContainer = styled.div`
@@ -74,7 +75,7 @@ const ItemsCount = styled.div`
 
 const ItemsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   width: 80%;
   margin-top: 0px;
