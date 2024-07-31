@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Input from "../../components/Input";
-import UserForm from "./components/UserForm";
 import UserFormGroup from "./components/UserFormGroup";
 import UserLabel from "./components/UserLabel";
 import { Button } from "./Login";
@@ -53,6 +52,14 @@ const SuccessWrapper = styled.div`
   font-size: 15px;
 `;
 
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+`;
+
 const FindUserId = () => {
   const [idSuccess, setIDSuccess] = useState<boolean>(false);
 
@@ -78,7 +85,7 @@ const FindUserId = () => {
           <span>onetool@gmail.com</span> 입니다.
         </SuccessWrapper>
       ) : (
-        <UserForm>
+        <Form>
           <UserFormGroup>
             <UserLabel>이름</UserLabel>
             <Input type="text" placeholder="이름을 입력해주세요." />
@@ -88,7 +95,7 @@ const FindUserId = () => {
             <Input type="text" placeholder="전화번호를 입력해주세요." />
           </UserFormGroup>
           <FindIdButton onClick={onClick}>아이디 찾기</FindIdButton>
-        </UserForm>
+        </Form>
       )}
     </Container>
   );

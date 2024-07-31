@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { ComponentProp } from "./UserForm";
 
 const FormGroup = styled.div`
   display: flex;
@@ -8,7 +7,11 @@ const FormGroup = styled.div`
   gap: 8px;
 `;
 
-const UserFormGroup = ({ children }: ComponentProp) => {
+interface IUserFormGroup {
+  children: React.ReactNode;
+}
+
+const UserFormGroup = ({ children }: IUserFormGroup) => {
   return <FormGroup>{children}</FormGroup>;
 };
 
