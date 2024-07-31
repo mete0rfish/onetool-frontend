@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Input from "../../components/Input";
-import UserForm from "./components/UserForm";
 import UserFormGroup from "./components/UserFormGroup";
 import UserLabel from "./components/UserLabel";
 import { Button } from "./Login";
@@ -43,6 +42,14 @@ const Message = styled.div`
   line-height: 24px;
 `;
 
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+`;
+
 const FindUserPassword = () => {
   return (
     <>
@@ -54,7 +61,7 @@ const FindUserPassword = () => {
           <span>비밀번호 찾기</span>
         </InnerTab>
       </Tab>
-      <UserForm>
+      <Form>
         <Message>
           회원정보의 이메일로
           <br />
@@ -65,7 +72,7 @@ const FindUserPassword = () => {
           <Input type="text" placeholder="아이디를 입력해주세요." />
         </UserFormGroup>
         <FindIdButton>이메일 발송</FindIdButton>
-      </UserForm>
+      </Form>
     </>
   );
 };
