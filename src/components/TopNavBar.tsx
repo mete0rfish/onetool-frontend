@@ -12,31 +12,36 @@ const TopNavBarContainer = styled.div`
   color: black;
   padding: 4px 40px;
   border: 1px solid #e8e8e8;
+  margin-bottom: 2rem;
 `;
 
 const Logo = styled.img`
-  width: 150px;
+  width: 240px;
   height: auto;
+  margin-left: -15px;
 `;
 
 const SearchBar = styled.input`
-  width: 812px;
+  width: 900px;
   height: 46px;
-  border-radius: 8px;
-  border: 1px solid #e8e8e8;
+  border-radius: 50px;
+  border: 3px solid #dadada;
   padding: 26px;
   font-size: 16px;
+  margin-left: -80px;
 `;
 
+
 const Icons = styled.div`
-  width: 64px;
+    width: 64px;
   height: 128px;
   padding: 11px 0px;
-  gap: 16px;
+  gap: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-right: 10px;
 `;
 
 const TopNavBar = () => {

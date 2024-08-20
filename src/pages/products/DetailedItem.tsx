@@ -296,10 +296,11 @@ const MainBanner = styled.div`
 `;
 
 const ThirdContainer = styled.div`
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  border: 1px solid red;
 `;
 
 const SuggestionsTitle = styled.div`
@@ -339,10 +340,10 @@ const DetailedItem = () => {
               <CompanyName>ONETOOL 회사명</CompanyName>
               <ItemName>건축 도면</ItemName>
               <PriceContainer>
-                <OriginalPrice>80000원</OriginalPrice>
+                <OriginalPrice>80,000원</OriginalPrice>
                 <PriceBox>
                   <SalePercentage>30%</SalePercentage>
-                  <CurrentPrice>56000원</CurrentPrice>
+                  <CurrentPrice>56,000원</CurrentPrice>
                 </PriceBox>
                 <SaleTimer>남은 시간 2일 10:13:50</SaleTimer>
               </PriceContainer>
@@ -378,8 +379,9 @@ const DetailedItem = () => {
             <MainBanner>Main Banner Content</MainBanner>
            
           </SecondContainer>
+
           <ThirdContainer>
-            <SuggestionsTitle>작가님의 다른 도면들이에요 </SuggestionsTitle>
+            <SuggestionsTitle>작가님의 다른 도면들이에요 &gt;</SuggestionsTitle>
             <SuggestionsGrid>
               {otherItems.map((item) => (
                 <ItemCard key={item.id} item={item} />
