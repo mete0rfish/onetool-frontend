@@ -16,7 +16,7 @@ const ContentContainer = styled.div`
 `;
 
 const RightContainer = styled.div`
-  width: 100%;
+  width: 80%;
   margin-left: 40px;
 `;
 
@@ -28,14 +28,14 @@ const TextContainer = styled.div`
   font-size: 24px;
   line-height: 36px;
   color: #333333;
-  margin-left: 30px;
+  margin-left: 15px;
   margin-top: 15px;
 `;
 
 const FilterContainer = styled.div`
   width: 80%;
   height: 30px;
-  margin-left: 30px;
+  margin-left: 15px;
   padding: 0px 5px 0px 0px;
   display: flex;
   gap: 0.5rem;
@@ -65,12 +65,13 @@ const ItemsCount = styled.div`
   width: 80%;
   height: 20px;
   padding: 0px 5px 0px 0px;
-  margin-left: 30px;
-  margin-top: 15px;
+  margin-left: 15px;
+  margin-top: 20px;
+  margin-bottom: 15px;
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
-  color: #212b36;
+  color: #212b3680;
 `;
 
 const ItemsGrid = styled.div`
