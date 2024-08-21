@@ -12,7 +12,7 @@ const TopNavBarContainer = styled.div`
   color: black;
   padding: 4px 40px;
   border: 1px solid #e8e8e8;
-margin-bottom: -10px;
+
 `;
 
 const Logo = styled.img`
