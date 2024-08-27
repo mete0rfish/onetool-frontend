@@ -8,7 +8,7 @@ const BannerWrapper = styled.div`
   overflow: hidden;
 `;
 
-const TestBanner = styled(motion.div)<{ bgColor: string }>`
+const TestBanner = styled(motion.div)<{ bgImage: string }>`
   display: flex;
   flex-direction: column;
   align-items: baseline;
@@ -16,15 +16,19 @@ const TestBanner = styled(motion.div)<{ bgColor: string }>`
   font-size: 26px;
   font-weight: 700;
   color: #ffffff;
-  background-color: ${(props) => props.bgColor};
+  background-image: url(${(props) => props.bgImage});
+  background-size: cover;
+  background-position: center;
   position: absolute;
   width: 100%;
   height: 100%;
   border-radius: 16px;
   cursor: pointer;
+
   p {
     margin-left: 64px;
   }
+
   svg {
     color: white;
     width: 20px;
@@ -69,7 +73,12 @@ const variants = {
 };
 
 const MainBanner = () => {
-  const colors = ["red", "blue", "gray", "pink", "purple", "teal"];
+  const images = [
+    "/kintexbanner1.jpg", // Replace with actual paths to your images
+    "/kintexbanner2.jpg",
+    "/kintexbanner3.jpg",
+
+  ];
   const [index, setIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [isLeaving, setIsLeaving] = useState(false);
@@ -77,18 +86,18 @@ const MainBanner = () => {
   useEffect(() => {
     if (!isHovered) {
       const interval = setInterval(() => {
-        setIndex((prevIndex) => (prevIndex + 1) % colors.length);
+        setIndex((prevIndex) => (prevIndex + 1) % images.length);
       }, 2000);
       return () => clearInterval(interval);
     }
-  }, [index, isHovered, colors.length]);
+  }, [index, isHovered, images.length]);
 
   const handleNext = () => {
     if (isLeaving) {
       return;
     }
     toggleLeaving();
-    setIndex((prevIndex) => (prevIndex + 1) % colors.length);
+    setIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
   const handlePrev = () => {
@@ -96,10 +105,11 @@ const MainBanner = () => {
       return;
     }
     toggleLeaving();
-    setIndex((prevIndex) => (prevIndex - 1 + colors.length) % colors.length);
+    setIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
   };
 
   const toggleLeaving = () => setIsLeaving((prev) => !prev);
+
   return (
     <BannerWrapper>
       <AnimatePresence
@@ -115,7 +125,7 @@ const MainBanner = () => {
           animate="center"
           exit="exit"
           transition={{ duration: 0.7 }}
-          bgColor={colors[index]}
+          bgImage={images[index]}  // Use bgImage instead of bgColor
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
