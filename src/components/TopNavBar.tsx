@@ -7,12 +7,11 @@ import { FaRegUser } from "react-icons/fa6";
 const TopNavBarContainer = styled.div`
   display: flex;
   height: 128px;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   color: black;
   padding: 4px 40px;
   border: 1px solid #e8e8e8;
-
 `;
 
 const Logo = styled.img`
@@ -31,9 +30,8 @@ const SearchBar = styled.input`
   margin-left: -80px;
 `;
 
-
 const Icons = styled.div`
-    width: 64px;
+  width: 64px;
   height: 128px;
   padding: 11px 0px;
   gap: 20px;
@@ -50,7 +48,7 @@ const TopNavBar = () => {
       <Link to={"/"}>
         <Logo src="/logowhite.jpeg" alt="Logo" />
       </Link>
-      <SearchBar type="text" placeholder="어떤 도면을 찾고 계신가요?" />
+      {/* <SearchBar type="text" placeholder="어떤 도면을 찾고 계신가요?" />
       <Icons>
         <Link to="/cart">
           <PiShoppingCartSimpleBold style={{ width: "22px", height: "22px" }} />
@@ -58,7 +56,7 @@ const TopNavBar = () => {
         <Link to="/users/login">
           <FaRegUser style={{ width: "18px", height: "18px" }} />
         </Link>
-      </Icons>
+      </Icons> */}
     </TopNavBarContainer>
   );
 };

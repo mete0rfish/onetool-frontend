@@ -1,14 +1,11 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { FcFaq } from "react-icons/fc";
-import { FaHandsHelping } from "react-icons/fa";
-import { ImNewspaper } from "react-icons/im";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import TopNavBar from "../../components/TopNavBar";
 import LeftSidebar from "../../components/LeftSidebar";
 import MainBanner from "../../components/MainBanner";
-import MainPageSlider from "../../components/MainPageSlider";
 import Footer from "../../components/Footer";
+import { blueprint } from "../../dummy/blueprint";
+import { formatPrice } from "../../utils/formatPrice";
 
 const MainContainer = styled.div`
   display: flex;
@@ -49,187 +46,79 @@ const Banner2 = styled.div`
   padding-bottom: 24px;
 `;
 
-const HorizontalBanners = styled.div`
-  width: 100%;
-  margin-top: 82px;
+const BluePrintList = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-bottom: 64px;
+  gap: 32px;
+  margin-top: 64px;
 `;
 
-const HorizontalBannerTitle = styled.span`
-  font-size: 18px;
-  font-weight: 700;
-`;
-
-const HorizontalElementContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  img {
-    width: 100%;
-    max-height: 248px;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 16px;
-  }
-`;
-
-const SliderPreviewImg = styled.img`
-  width: 100%;
-  height: 100%;
-`;
-
-const HorizontalSliderWrapper = styled.div`
-  display: flex;
-  gap: 4px;
-  button {
-    width: 20%;
-    height: 70px;
-  }
-`;
-
-const FamousProductContainer = styled.div`
+const BluePrintCard = styled.div`
   border: 1px solid #e7e7e8;
   border-radius: 16px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 12px;
-`;
-
-const FamousProduct = styled.div`
-  display: flex;
   align-items: center;
+  text-align: center;
+  cursor: pointer;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
   img {
-    width: 145px;
+    width: 100%;
+    height: 200px;
     object-fit: cover;
     object-position: center;
-    border-radius: 4px;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 `;
 
-const FamousProductInfoWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 8px;
-  gap: 4px;
-`;
-
-const FamousProductTitle = styled.span`
-  font-size: 11px;
-  color: #a0a0a0;
-`;
-
-const FamousProductName = styled.span`
-  font-size: 13px;
-`;
-
-const FamousProductPrice = styled.span`
+const BluePrintName = styled.h3`
+  font-size: 18px;
   font-weight: 700;
-  font-size: 15px;
+  margin-top: 12px;
 `;
 
-const ButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 24px;
-`;
-
-const UseButton = styled.button`
-  width: 100%;
-  background-color: #f5f5f6;
-  border-radius: 100px;
-  display: flex;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  padding: 20px 26px;
-  font-size: 15px;
-  font-weight: 700;
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-`;
-
-const FaqIcon = styled(FcFaq)`
-  font-size: 44px;
-  left: 82px;
-`;
-
-const PartnerIcon = styled(FaHandsHelping)`
-  font-size: 44px;
-  left: 82px;
-  color: #fbceb1;
-`;
-
-const CurrentButton = styled(UseButton)`
-  display: flex;
-  div {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-`;
-
-const NewsPaperIcon = styled(ImNewspaper)`
-  font-size: 44px;
-  left: 82px;
-  color: #5b5b5b;
-`;
-
-const PartnerBrandWrapper = styled.div`
-  display: flex;
-  gap: 40px;
-  margin-top: 16px;
-  margin-bottom: 60px;
-`;
-
-const BrandLink = styled(Link)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-const BrandLogo = styled.img`
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: center;
-  margin-bottom: 18px;
-`;
-
-const BrandName = styled.span`
-  font-size: 13px;
-  font-weight: 700;
-`;
-
-const BrandProductCount = styled.span`
-  font-size: 11px;
+const BluePrintCreator = styled.span`
+  font-size: 14px;
   color: #88888a;
+  margin-bottom: 8px;
+`;
+
+const BluePrintPrice = styled.span`
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 12px;
+`;
+
+const OriginalPrice = styled.span`
+  color: red;
+  font-weight: 700;
+  margin-right: 8px;
+`;
+
+const Hits = styled.span`
+  font-size: 12px;
+  color: #88888a;
+  margin-top: 4px;
 `;
 
 const MainPage = () => {
-  const [mainImg, setMainImg] = useState<string>("/horizontal1.jpg");
-  const [sliderImgArray, setSliderImgArray] = useState<string[]>([
-    "/horizontal1.jpg",
-    "/horizontal2.jpg",
-    "/horizontal3.jpg",
-    "/horizontal4.jpg",
-    "/horizontal5.jpg",
-  ]);
-
-  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const buttonName = e.currentTarget.name;
-    const newMainImg = sliderImgArray[parseInt(buttonName) - 1];
-    setMainImg(newMainImg);
+  const navigate = useNavigate();
+  const onClick = (id: number) => {
+    navigate(`/items/${id}`);
   };
 
   return (
@@ -237,7 +126,6 @@ const MainPage = () => {
       <TopNavBar />
       <MainContainer>
         <ContentContainer>
-          <LeftSidebar />
           <DetailContainer>
             <BannersContainer>
               <MainBanner />
@@ -256,116 +144,22 @@ const MainPage = () => {
                 </Banner2>
               </Link>
             </BannersContainer>
-            <HorizontalBanners>
-              <HorizontalElementContainer>
-                <HorizontalBannerTitle>
-                  지금 놓치면 가격이 올라가요
-                </HorizontalBannerTitle>
-                <img src={mainImg} alt="main" decoding="async" />
-                <HorizontalSliderWrapper>
-                  {sliderImgArray.map((img, index) => (
-                    <button
-                      key={index}
-                      name={(index + 1).toString()}
-                      onClick={onClick}
-                    >
-                      <SliderPreviewImg
-                        src={img}
-                        alt={`thumbnail ${index + 1}`}
-                        decoding="async"
-                      />
-                    </button>
-                  ))}
-                </HorizontalSliderWrapper>
-              </HorizontalElementContainer>
 
-              <HorizontalElementContainer>
-                <HorizontalBannerTitle>
-                  많은 사람들이 구매했어요
-                </HorizontalBannerTitle>
-                <FamousProductContainer>
-                  <FamousProduct>
-                    <img src="/horizontal1.jpg" alt="" />
-                    <FamousProductInfoWrapper>
-                      <FamousProductTitle>네모</FamousProductTitle>
-                      <FamousProductName>
-                        효과음 오토액션&스타일
-                      </FamousProductName>
-                      <FamousProductPrice>9,900원</FamousProductPrice>
-                    </FamousProductInfoWrapper>
-                  </FamousProduct>
-                  <FamousProduct>
-                    <img src="/horizontal2.jpg" alt="" />
-                    <FamousProductInfoWrapper>
-                      <FamousProductTitle>네모</FamousProductTitle>
-                      <FamousProductName>
-                        효과음 오토액션&스타일
-                      </FamousProductName>
-                      <FamousProductPrice>9,900원</FamousProductPrice>
-                    </FamousProductInfoWrapper>
-                  </FamousProduct>
-                  <FamousProduct>
-                    <img src="/horizontal3.jpg" alt="" />
-                    <FamousProductInfoWrapper>
-                      <FamousProductTitle>네모</FamousProductTitle>
-                      <FamousProductName>
-                        효과음 오토액션&스타일
-                      </FamousProductName>
-                      <FamousProductPrice>9,900원</FamousProductPrice>
-                    </FamousProductInfoWrapper>
-                  </FamousProduct>
-                </FamousProductContainer>
-              </HorizontalElementContainer>
-              <HorizontalElementContainer>
-                <HorizontalBannerTitle>
-                  한 손에 잡히는 도구, ONETOOL 활용법
-                </HorizontalBannerTitle>
-                <ButtonWrapper>
-                  <Link to={"/faq"}>
-                    <UseButton>
-                      <span>문의사항 작성하기</span>
-                      <div>
-                        <FaqIcon />
-                        <i>&rarr;</i>
-                      </div>
-                    </UseButton>
-                  </Link>
-                  <UseButton>
-                    <span>파트너 신청하기</span>
-                    <div>
-                      <PartnerIcon />
-                      <i>&rarr;</i>
-                    </div>
-                  </UseButton>
-                </ButtonWrapper>
-                <HorizontalBannerTitle>ONETOOL 거래 현황</HorizontalBannerTitle>
-                <CurrentButton>
-                  <NewsPaperIcon />
-                  <div>
-                    <span>총 자료 수 : 2024건 이상</span>
-                    <span>누적 다운로드 수 : 1억건 이상</span>
-                  </div>
-                </CurrentButton>
-              </HorizontalElementContainer>
-            </HorizontalBanners>
-
-            <HorizontalBannerTitle>ONETOOL 파트너 브랜드</HorizontalBannerTitle>
-            <PartnerBrandWrapper>
-              <BrandLink to={"/search/onetool"}>
-                <BrandLogo src="/onetool-logo.png" alt="" />
-                <BrandName>ONETOOL</BrandName>
-                <BrandProductCount>20개 상품</BrandProductCount>
-              </BrandLink>
-              <BrandLink to={"/search/onetool"}>
-                <BrandLogo src="/onetool-logo.png" alt="" />
-                <BrandName>ONETOOL</BrandName>
-                <BrandProductCount>20개 상품</BrandProductCount>
-              </BrandLink>
-            </PartnerBrandWrapper>
-
-            <MainPageSlider title={"단독 상품!"} />
-            <MainPageSlider title={"오늘의 추천"} />
-            <MainPageSlider title={"오늘만 할인!"} />
+            <BluePrintList>
+              {blueprint.map((item) => (
+                <BluePrintCard key={item.id} onClick={() => onClick(item.id)}>
+                  <img src={item.blueprintImg} alt={item.blueprintName} />
+                  <BluePrintName>{item.blueprintName}</BluePrintName>
+                  <BluePrintCreator>{item.creatorName}</BluePrintCreator>
+                  <BluePrintPrice>
+                    <OriginalPrice>
+                      {formatPrice(item.standardPrice)}원
+                    </OriginalPrice>
+                  </BluePrintPrice>
+                  <Hits>{item.blueprintDetails}</Hits>
+                </BluePrintCard>
+              ))}
+            </BluePrintList>
           </DetailContainer>
         </ContentContainer>
       </MainContainer>
