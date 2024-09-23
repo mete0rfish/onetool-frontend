@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 import { RiKakaoTalkLine } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa";
 import { IoCallOutline } from "react-icons/io5";
@@ -23,7 +23,6 @@ const TopContainer = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   gap: 22px;
-  
 `;
 
 const Button = styled.a`
@@ -62,7 +61,7 @@ const BottomContainer = styled.div`
   padding: 48px 72px 74px 72px;
   display: flex;
   align-items: center;
-  color: #6D6D70;
+  color: #6d6d70;
   font-size: 13.31px;
   line-height: 11px;
   font-weight: 400;
@@ -96,27 +95,32 @@ const Footer: React.FC = () => {
           <Button href="#!">이용약관</Button>
           <Button href="#!">개인정보처리방침</Button>
           <Button href="#!">EULA</Button>
-          <Button href="#!">식단 관리 파트너 신청</Button>
+          <Button href="#!">파트너 신청</Button>
           <Button href="#!">고객센터</Button>
           <Button href="#!">공지사항</Button>
         </ButtonContainer>
         <IconContainer>
-        <RiKakaoTalkLine />
-        <FaInstagram />
-    
+          <RiKakaoTalkLine />
+          <FaInstagram />
         </IconContainer>
       </TopContainer>
       <BottomContainer>
         <InfoContainer>
-          법인명: 주식회사 원툴 | 대표자: 정재민<br />
-          사업자등록번호: 690-95-01701 | 사업자정보확인 | 통신판매업신고번호: -<br />
-          주소: 서울특별시 광진구 능동로 209 6층<br />
-          개인정보관리책임: 정재민 | 호스팅 제공: Amazon Web Service(AWS)<br />
+          법인명: 주식회사 원툴 | 대표자: 정재민
+          <br />
+          사업자등록번호: 690-95-01701 | 사업자정보확인 | 통신판매업신고번호: -
+          <br />
+          주소: 서울특별시 광진구 능동로 209 6층
+          <br />
+          개인정보관리책임: 정재민 | 호스팅 제공: Amazon Web Service(AWS)
+          <br />
           Copyright @ 2024 ONETOOL. All Rights Reserved.
         </InfoContainer>
         <ContactContainer>
-          대량 구매 / 위탁 배송 / 기업 상담<br />
-          일반 문의는 채팅 상담을 사용해주세요.<br />
+          도면 구매 / 기업 상담
+          <br />
+          일반 문의는 채팅 상담을 사용해주세요.
+          <br />
           <PhoneNumber>02-878-1201</PhoneNumber>
           onetoolfirst@gmail.com
         </ContactContainer>
