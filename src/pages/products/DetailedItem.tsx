@@ -30,10 +30,14 @@ const CategoryContainer = styled.div`
 `;
 
 const FirstContainer = styled.div`
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 이미지와 정보가 각각 반반 차지하게 설정 */
+  align-items: start;
+  gap: 4rem; /* 좀 더 정돈된 간격으로 설정 */
   width: 100%;
-  gap: 8rem;
+  max-width: 1200px; /* 고정된 최대 너비로 레이아웃을 중앙에 정렬 */
+  margin: 0 auto; /* 중앙 정렬 */
+  padding: 32px 0; /* 상하 여백을 조금 더 넉넉하게 설정 */
 `;
 
 const ImageContainer = styled.div`
@@ -47,17 +51,17 @@ const ImageContainer = styled.div`
 const RightContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 360px;
-  height: 631.39px;
+  justify-content: flex-start;
+  gap: 6px; /* 요소 간 적절한 간격 */
+  max-width: 400px; /* 너비를 조금 좁게 설정 */
 `;
 
 const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 277px;
-  gap: 14px;
-  border-radius: 0px 0px 1px 0px;
-  padding: 22px 0px 23px 0px;
+  gap: 10px;
+  padding: 16px 0px 23px 0px;
   border-bottom: 1px solid #88888a50;
 `;
 
@@ -112,7 +116,7 @@ const CurrentPrice = styled.div`
   font-weight: 700;
   font-size: 26.91px;
   line-height: 33px;
-  color: #18181b;
+  color: #ff5c00;
 `;
 
 const SaleTimer = styled.div`
@@ -170,16 +174,16 @@ const CompatibleProgramsContainer = styled.div`
 `;
 
 const CompatibleProgram = styled.div`
-  padding: 4px 6px;
-  border: 1px solid #88888a;
-  border-radius: 4px;
-  gap: 4px;
-  font-size: 14px;
-  color: #313135;
-  font-weight: 400;
-  font-size: 11.44px;
-  line-height: 12px;
-  color: #4c4c50;
+  padding: 8px 12px;
+  border: 1px solid #d3d3d3;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+  font-size: 12px;
+  font-weight: 500;
+  color: #2d2d2d;
+  line-height: 16px;
+  text-align: center;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 `;
 
 const FileExtension = styled.div`
@@ -203,8 +207,8 @@ const ButtonsContainer = styled.div`
 const BuyButton = styled(Link)`
   height: 48px;
   width: 100%;
+  max-width: 300px; /* 버튼 크기 제한 */
   border: none;
-  color: black;
   background-color: #3912e7;
   cursor: pointer;
   border-radius: 8px;
@@ -215,9 +219,37 @@ const BuyButton = styled(Link)`
   justify-content: center;
   align-items: center;
   color: white;
+  text-decoration: none;
+
   &:hover {
     background-color: #0e3aeb;
   }
+`;
+
+const QRContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+  width: 100%;
+  max-width: 300px; /* QR 컨테이너 크기 제한 */
+  border-radius: 8px;
+  border: 1px solid #d3d3d3;
+  padding: 16px;
+  background-color: #f9f9f9; /* QR 코드 배경 색 */
+`;
+
+const QRTitle = styled.div`
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 8px;
+  color: #313135;
+`;
+
+const QRImg = styled.img`
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
 `;
 
 const CartButton = styled.button`
@@ -280,13 +312,8 @@ const BlueBox = styled.div`
 const MainImg = styled.img`
   width: 700px;
   height: 700px;
-  border-radius: 8px;
-  object-fit: cover;
-  object-position: center;
-`;
-
-const QRImg = styled.img`
-  width: 200px;
+  border-radius: 10px; /* 둥근 모서리 추가로 부드러운 느낌 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 세련된 그림자 효과 */
 `;
 
 const DetailImg = styled.img`
@@ -303,7 +330,6 @@ const DetailedItem = () => {
         <TopNavBar />
         <OuterContainer>
           <MainContainer>
-            <CategoryContainer>{data.categoryId}</CategoryContainer>
             <FirstContainer>
               <MainImg src={`${data.blueprintImg}`} alt="Big Item" />
               <RightContainer>
@@ -336,7 +362,10 @@ const DetailedItem = () => {
                   >
                     구매문의 하기
                   </BuyButton>
-                  <QRImg src="/qr.png" alt="" />
+                  <QRContainer>
+                    <QRTitle>설문조사 하기!</QRTitle>
+                    <QRImg src="/qr.png" alt="설문조사 QR" />
+                  </QRContainer>
                 </ButtonsContainer>
               </RightContainer>
             </FirstContainer>
