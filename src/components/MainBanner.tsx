@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const BannerWrapper = styled.div`
   position: relative;
@@ -77,7 +78,6 @@ const MainBanner = () => {
     "/kintexbanner1.jpg", // Replace with actual paths to your images
     "/kintexbanner2.jpg",
     "/kintexbanner3.jpg",
-
   ];
   const [index, setIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -125,12 +125,14 @@ const MainBanner = () => {
           animate="center"
           exit="exit"
           transition={{ duration: 0.7 }}
-          bgImage={images[index]}  // Use bgImage instead of bgColor
+          bgImage={images[index]} // Use bgImage instead of bgColor
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <p>무료 CAD 소스가 이렇게 좋다고?</p>
-          <p>킨텍스 도면 보러가기</p>
+          <Link to={"/items/4"}>
+            <p>무료 CAD 소스가 이렇게 좋다고?</p>
+            <p>킨텍스 도면 보러가기</p>
+          </Link>
           <NextBtn>
             <button onClick={handleNext}>
               <IoIosArrowDown />

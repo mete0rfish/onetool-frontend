@@ -14,22 +14,37 @@ const MainContainer = styled.div`
 
 const ContentContainer = styled.div`
   display: flex;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 `;
 
 const DetailContainer = styled.div`
   width: 100%;
-  padding: 48px 40px;
+  padding: 24px 20px;
+
+  @media (min-width: 768px) {
+    padding: 48px 40px;
+  }
 `;
 
 const BannersContainer = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+  }
 `;
 
 const Banner2 = styled.div`
   width: 100%;
-  height: 274px;
+  height: 200px;
   border-radius: 16px;
   display: flex;
   flex-direction: column;
@@ -37,26 +52,39 @@ const Banner2 = styled.div`
   justify-content: center;
   background-color: #203a92;
   img {
-    width: 200px;
+    width: 150px;
   }
   text-align: center;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   padding-bottom: 24px;
+
+  @media (min-width: 768px) {
+    height: 274px;
+    font-size: 20px;
+    img {
+      width: 200px;
+    }
+  }
 `;
 
 const BluePrintList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  margin-top: 64px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 32px;
+  gap: 30px;
+
+  @media (min-width: 768px) {
+    margin-top: 64px;
+  }
 `;
 
 const BluePrintCard = styled.div`
   border: 1px solid #e7e7e8;
   border-radius: 16px;
-  padding: 20px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,6 +93,7 @@ const BluePrintCard = styled.div`
   background-color: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
 
   &:hover {
     transform: scale(1.05);
@@ -73,7 +102,7 @@ const BluePrintCard = styled.div`
 
   img {
     width: 100%;
-    height: 200px;
+    height: 150px;
     object-fit: cover;
     object-position: center;
     border-radius: 8px;
@@ -83,36 +112,66 @@ const BluePrintCard = styled.div`
       transform: scale(1.1);
     }
   }
+
+  @media (min-width: 768px) {
+    width: 30%;
+    padding: 20px;
+    img {
+      height: 200px;
+    }
+  }
 `;
 
 const BluePrintName = styled.h3`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
-  margin-top: 12px;
+  margin-top: 8px;
+
+  @media (min-width: 768px) {
+    font-size: 18px;
+    margin-top: 12px;
+  }
 `;
 
 const BluePrintCreator = styled.span`
-  font-size: 14px;
+  font-size: 12px;
   color: #88888a;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+
+  @media (min-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 const BluePrintPrice = styled.span`
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+
+  @media (min-width: 768px) {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
 `;
 
 const OriginalPrice = styled.span`
   color: red;
   font-weight: 700;
-  margin-right: 8px;
+  margin-right: 6px;
+
+  @media (min-width: 768px) {
+    margin-right: 8px;
+  }
 `;
 
 const Hits = styled.span`
-  font-size: 12px;
+  font-size: 10px;
   color: #88888a;
   margin-top: 4px;
+
+  @media (min-width: 768px) {
+    font-size: 12px;
+  }
 `;
 
 const MainPage = () => {

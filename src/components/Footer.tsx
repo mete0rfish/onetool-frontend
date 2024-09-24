@@ -2,12 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { RiKakaoTalkLine } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa";
-import { IoCallOutline } from "react-icons/io5";
 
-// Styled components
 const FooterContainer = styled.footer`
   background-color: #f0f0f2;
   text-align: left;
+  padding: 6px;
 `;
 
 const TopContainer = styled.div`
@@ -15,14 +14,25 @@ const TopContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 78px;
-  border-top: 1px solid #dee2e6;
   border-bottom: 1px solid #dee2e6;
   padding: 15px 72px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 20px;
+    gap: 10px;
+  }
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   gap: 22px;
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
 `;
 
 const Button = styled.a`
@@ -44,21 +54,14 @@ const IconContainer = styled.div`
   margin-right: -30px;
   gap: 15px;
   font-size: 25px;
-`;
 
-const Icon = styled.img`
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.7;
+  @media (max-width: 768px) {
+    margin-right: 0;
   }
 `;
 
 const BottomContainer = styled.div`
-  height: 156px;
-  padding: 48px 72px 74px 72px;
+  padding: 30px 72px 30px 72px;
   display: flex;
   align-items: center;
   color: #6d6d70;
@@ -66,6 +69,13 @@ const BottomContainer = styled.div`
   line-height: 11px;
   font-weight: 400;
   letter-spacing: 0.15px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 20px;
+  }
 `;
 
 const InfoContainer = styled.div`
@@ -79,6 +89,10 @@ const ContactContainer = styled.div`
   flex-direction: column;
   font-size: 13px;
   margin-left: 70px;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+  }
 `;
 
 const PhoneNumber = styled.span`
