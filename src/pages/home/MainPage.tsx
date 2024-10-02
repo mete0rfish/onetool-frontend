@@ -26,7 +26,7 @@ const DetailContainer = styled.div`
   padding: 24px 20px;
 
   @media (min-width: 768px) {
-    padding: 48px 40px;
+    padding: 40px 40px 100px 40px;
   }
 `;
 
@@ -34,6 +34,7 @@ const BannersContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  margin-bottom: 56px;
 
   @media (min-width: 768px) {
     display: grid;
@@ -70,73 +71,55 @@ const Banner2 = styled.div`
 `;
 
 const BluePrintList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 32px;
-  gap: 30px;
-
-  @media (min-width: 768px) {
-    margin-top: 64px;
-  }
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 38px;
+  gap: 38px;
 `;
 
 const BluePrintCard = styled.div`
   border: 1px solid #e7e7e8;
   border-radius: 16px;
-  padding: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
   cursor: pointer;
   background-color: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   width: 100%;
-
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  }
+  max-height: 436px;
 
   img {
     width: 100%;
-    height: 150px;
+    height: 289px;
     object-fit: cover;
     object-position: center;
-    border-radius: 8px;
+    border-radius: 8px 8px 0px 0px;
     transition: transform 0.3s ease;
-
-    &:hover {
-      transform: scale(1.1);
-    }
   }
+`;
 
-  @media (min-width: 768px) {
-    width: 30%;
-    padding: 20px;
-    img {
-      height: 200px;
-    }
-  }
+const BluePrintCardDetail = styled.div`
+  width: 100%;
+  padding: 20px 25px 35px 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 `;
 
 const BluePrintName = styled.h3`
   font-size: 16px;
   font-weight: 700;
-  margin-top: 8px;
 
   @media (min-width: 768px) {
     font-size: 18px;
-    margin-top: 12px;
   }
 `;
 
 const BluePrintCreator = styled.span`
   font-size: 12px;
   color: #88888a;
-  margin-bottom: 6px;
 
   @media (min-width: 768px) {
     font-size: 14px;
@@ -146,15 +129,13 @@ const BluePrintCreator = styled.span`
 const BluePrintPrice = styled.span`
   font-size: 14px;
   font-weight: 700;
-  margin-bottom: 10px;
 
   @media (min-width: 768px) {
-    font-size: 16px;
-    margin-bottom: 12px;
+    font-size: 18px;
   }
 `;
 
-const OriginalPrice = styled.span`
+const SalePrice = styled.span`
   color: red;
   font-weight: 700;
   margin-right: 6px;
@@ -164,14 +145,21 @@ const OriginalPrice = styled.span`
   }
 `;
 
-const Hits = styled.span`
+const OriginalPrice = styled.span`
   font-size: 10px;
-  color: #88888a;
+  color: #a2a2a4;
+  font-weight: 400;
   margin-top: 4px;
+  text-decoration: line-through;
 
   @media (min-width: 768px) {
-    font-size: 12px;
+    font-size: 18px;
   }
+`;
+
+const GridTitle = styled.h2`
+  font-size: 20px;
+  font-weight: 700;
 `;
 
 const MainPage = () => {
@@ -185,6 +173,7 @@ const MainPage = () => {
       <TopNavBar />
       <MainContainer>
         <ContentContainer>
+          <LeftSidebar />
           <DetailContainer>
             <BannersContainer>
               <MainBanner />
@@ -204,18 +193,21 @@ const MainPage = () => {
               </Link>
             </BannersContainer>
 
+            <GridTitle>인기 도면 한 눈에 확인하기 &gt;</GridTitle>
             <BluePrintList>
               {blueprint.map((item) => (
                 <BluePrintCard key={item.id} onClick={() => onClick(item.id)}>
                   <img src={item.blueprintImg} alt={item.blueprintName} />
-                  <BluePrintName>{item.blueprintName}</BluePrintName>
-                  <BluePrintCreator>{item.creatorName}</BluePrintCreator>
-                  <BluePrintPrice>
-                    <OriginalPrice>
-                      {formatPrice(item.standardPrice)}원
-                    </OriginalPrice>
-                  </BluePrintPrice>
-                  <Hits>{item.blueprintDetails}</Hits>
+                  <BluePrintCardDetail>
+                    <BluePrintCreator>{item.creatorName}</BluePrintCreator>
+                    <BluePrintName>{item.blueprintName}</BluePrintName>
+                    <BluePrintPrice>
+                      <SalePrice>{formatPrice(item.standardPrice)}원</SalePrice>
+                      <OriginalPrice>
+                        {formatPrice(item.standardPrice)}원
+                      </OriginalPrice>
+                    </BluePrintPrice>
+                  </BluePrintCardDetail>
                 </BluePrintCard>
               ))}
             </BluePrintList>
