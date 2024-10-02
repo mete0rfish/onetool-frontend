@@ -10,9 +10,9 @@ interface CategoryProps {
 
 const SidebarContainer = styled.div`
   min-width: 200px;
-  padding: 24px 40px 48px 40px;
+  padding: 40px 40px;
   margin-left: -10px;
-  border-right: 1px solid #cccccc;
+  border-right: 1px solid #e8e8e8;
 `;
 
 const HorizontalBorder = styled.div`
@@ -22,10 +22,10 @@ const HorizontalBorder = styled.div`
 const CategoryHeader = styled.h2`
   display: flex;
   justify-content: space-between;
-  padding: 24px 6px;
   font-weight: 600;
   font-size: 15.25px;
   line-height: 16px;
+  padding-bottom: 24px;
 `;
 
 const CategoryContainer = styled.div`
@@ -42,8 +42,7 @@ const SubCategoryContainer = styled.div`
 
 const Category = styled.div<CategoryProps>`
   border-radius: 4px;
-  padding: 8px;
-
+  padding: 8px 0px;
   font-weight: 600;
   font-size: 13.23px;
   line-height: 21px;

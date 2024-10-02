@@ -7,7 +7,7 @@ import { FaRegUser } from "react-icons/fa6";
 const TopNavBarContainer = styled.div`
   display: flex;
   height: 128px;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   color: black;
   padding: 4px 40px;
@@ -15,19 +15,19 @@ const TopNavBarContainer = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 240px;
-  height: auto;
-  margin-left: -15px;
+  width: 140px;
+  height: 34px;
+  margin-left: 30px;
 `;
 
 const SearchBar = styled.input`
-  width: 900px;
+  width: 812px;
   height: 46px;
-  border-radius: 50px;
-  border: 3px solid #dadada;
+  margin-left: 20px;
+  border-radius: 8px;
+  border: 1px solid #e8e8e8;
   padding: 26px;
   font-size: 16px;
-  margin-left: -80px;
 `;
 
 const Icons = styled.div`
@@ -39,16 +39,24 @@ const Icons = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-right: 10px;
+`;
+
+const LogoANDInput = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const TopNavBar = () => {
   return (
     <TopNavBarContainer>
-      <Link to={"/"}>
-        <Logo src="/logowhite.jpeg" alt="Logo" />
-      </Link>
-      {/* <SearchBar type="text" placeholder="어떤 도면을 찾고 계신가요?" />
+      <div></div>
+      {/* temp div */}
+      <LogoANDInput>
+        <Link to={"/"}>
+          <Logo src="/logowhite.jpeg" alt="Logo" />
+        </Link>
+        <SearchBar type="text" placeholder="어떤 도면을 찾고 계신가요?" />
+      </LogoANDInput>
       <Icons>
         <Link to="/cart">
           <PiShoppingCartSimpleBold style={{ width: "22px", height: "22px" }} />
@@ -56,7 +64,7 @@ const TopNavBar = () => {
         <Link to="/users/login">
           <FaRegUser style={{ width: "18px", height: "18px" }} />
         </Link>
-      </Icons> */}
+      </Icons>
     </TopNavBarContainer>
   );
 };
