@@ -22,6 +22,10 @@ const router = createBrowserRouter([
     element: <MainPage />,
   },
   {
+    path: "/items/category/:id",
+    element: <ListedItems />,
+  },
+  {
     path: "/items",
     element: <ListedItems />,
   },

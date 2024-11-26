@@ -85,6 +85,7 @@ input{
 `;
 
 axios.defaults.baseURL = "https://test.onetool.co.kr";
+axios.defaults.withCredentials = true;
 
 const queryClient = new QueryClient({
   defaultOptions: {

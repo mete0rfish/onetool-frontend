@@ -90,7 +90,7 @@ export async function getAllItems(page: number, size: number) {
 }
 
 interface IGetCategoryItems {
-  category: string;
+  category?: string;
   page: number;
 }
 
@@ -98,7 +98,7 @@ interface IGetCategoryItems {
 export async function getCategoryItems({ category, page }: IGetCategoryItems) {
   try {
     const res = await axios.get(
-      `/blueprint/c?category=${category}&page=${page}&size=${8}`
+      `/blueprint/${category}?&size=${8}&page=${page}`
     );
     return res.data;
   } catch (error) {

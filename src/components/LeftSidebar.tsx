@@ -89,11 +89,11 @@ const LeftSidebar = () => {
         </CategoryHeader>
         <CategoryContainer>
           <MainCategoryContainer>
-            <Category to={"/items"}>전체</Category>
+            <Category to={"/items/category/all"}>전체</Category>
           </MainCategoryContainer>
 
           <MainCategoryContainer>
-            <Category to={"/items"}>건축도면</Category>
+            <Category to={"/items/category/building"}>건축도면</Category>
             <SubCategoryContainer>
               <SubCategory onClick={handleSubCategoryClick}>- 주거</SubCategory>
               <SubCategory onClick={handleSubCategoryClick}>- 상업</SubCategory>
@@ -102,7 +102,7 @@ const LeftSidebar = () => {
           </MainCategoryContainer>
 
           <MainCategoryContainer>
-            <Category to={"/items"}>토목도면</Category>
+            <Category to={"/items/category/civil"}>토목도면</Category>
             <SubCategoryContainer>
               <SubCategory onClick={handleSubCategoryClick}>- 도로</SubCategory>
               <SubCategory onClick={handleSubCategoryClick}>- 교통</SubCategory>
@@ -114,7 +114,7 @@ const LeftSidebar = () => {
           </MainCategoryContainer>
 
           <MainCategoryContainer>
-            <Category to={"/items"}>인테리어 도면</Category>
+            <Category to={"/items/interior"}>인테리어 도면</Category>
             <SubCategoryContainer>
               <SubCategory onClick={handleSubCategoryClick}>- 주거</SubCategory>
               <SubCategory onClick={handleSubCategoryClick}>- 상업</SubCategory>
