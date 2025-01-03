@@ -109,7 +109,7 @@ export default function ItemCard({ blueprint }: ItemCardProps) {
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.3 }}
     >
-      <Link to={`/items/detail/${blueprint.id}`}>
+      <Link to={`/items/${blueprint.id}`}>
         <ItemImage
           src={
             imgError

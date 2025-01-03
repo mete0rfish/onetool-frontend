@@ -6,6 +6,7 @@ import { HelmetProvider } from "react-helmet-async";
 import MetaTag from "./components/MetaTag";
 import axios from "axios";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { StrictMode } from "react";
 
 const GlobalStyle = createGlobalStyle`
 @font-face {
@@ -85,6 +86,7 @@ input{
 `;
 
 axios.defaults.baseURL = "https://test.onetool.co.kr";
+axios.defaults.withCredentials = true;
 
 const queryClient = new QueryClient({
   defaultOptions: {

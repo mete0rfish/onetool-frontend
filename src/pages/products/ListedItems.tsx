@@ -4,7 +4,7 @@ import ItemCard from "../../components/ItemCard";
 import LeftSidebar from "../../components/LeftSidebar";
 import TopNavBar from "../../components/TopNavBar";
 import Footer from "../../components/Footer";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import {
   getAllItems,
@@ -96,7 +96,7 @@ const PaginationButton = styled.button<{ disabled?: boolean }>`
 const AllItemsPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const category = new URLSearchParams(location.search).get("category");
+  const { id: category } = useParams();
   const search = new URLSearchParams(location.search).get("s");
   const pageParam = new URLSearchParams(location.search).get("page") || "0";
   const [page, setPage] = useState(parseInt(pageParam, 10));
@@ -104,22 +104,20 @@ const AllItemsPage = () => {
   const { data, isLoading, error } = useQuery<ItemProps>({
     queryKey: search
       ? ["items", "search", search, page]
-      : category
-      ? ["items", "category", category, page]
-      : ["items", "all", page],
+      : category === "all"
+      ? ["items", "all", page]
+      : ["items", category, page],
     queryFn: () => {
       if (search) return getItems({ search, page });
-      if (category) return getCategoryItems({ category, page });
-      return getAllItems(page, 8);
+      if (category === "all") return getAllItems(page, 8);
+      return getCategoryItems({ category, page });
     },
   });
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
     navigate({
-      search: `?${category ? `category=${category}&` : ""}${
-        search ? `s=${search}&` : ""
-      }page=${newPage}`,
+      search: `?${search ? `s=${search}&` : ""}page=${newPage}`,
     });
   };
 
@@ -127,8 +125,8 @@ const AllItemsPage = () => {
 
   const pageTitle = search
     ? `검색 결과: ${search}`
-    : category
-    ? `${category} 요리/반찬 목록`
+    : category !== "all"
+    ? `${category} 카테고리`
     : "전체 상품 목록";
 
   return (

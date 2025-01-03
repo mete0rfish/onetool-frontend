@@ -5,6 +5,8 @@ import Input from "../../components/Input";
 import UserFormGroup from "./components/UserFormGroup";
 import UserLabel from "./components/UserLabel";
 import { Button } from "./Login";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -60,12 +62,35 @@ const Form = styled.form`
   gap: 20px;
 `;
 
-const FindUserId = () => {
-  const [idSuccess, setIDSuccess] = useState<boolean>(false);
+interface IForm {
+  name: string;
+  phoneNum: number;
+}
 
-  const onClick = () => {
-    setIDSuccess((prev) => !prev);
+const FindUserId = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IForm>();
+  const [findId, setFindId] = useState<string>("");
+  const [findName, setFindName] = useState<string>("");
+
+  const onValid = async ({ name, phoneNum }: IForm) => {
+    try {
+      const res = await axios.post(`/users/email`, {
+        name,
+        phoneNum,
+      });
+      if (res.data) {
+        setFindId(res.data.result);
+        setFindName(name);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   // test목적으로 사용됨.
 
   return (
@@ -78,23 +103,27 @@ const FindUserId = () => {
           <span>비밀번호 찾기</span>
         </InnerTab>
       </Tab>
-      {idSuccess ? (
+      {findId ? (
         <SuccessWrapper>
-          <span>정재민</span>님의 아이디는
+          <span>{findName}</span>님의 아이디는
           <br />
-          <span>onetool@gmail.com</span> 입니다.
+          <span>{findId}</span> 입니다.
         </SuccessWrapper>
       ) : (
-        <Form>
+        <Form onSubmit={handleSubmit(onValid)}>
           <UserFormGroup>
             <UserLabel>이름</UserLabel>
-            <Input type="text" placeholder="이름을 입력해주세요." />
+            <Input
+              type="text"
+              placeholder="이름을 입력해주세요."
+              {...register("name", { required: true })}
+            />
           </UserFormGroup>
           <UserFormGroup>
             <UserLabel>전화번호</UserLabel>
-            <Input type="text" placeholder="전화번호를 입력해주세요." />
+            <Input type="text" {...register("phoneNum", { required: true })} />
           </UserFormGroup>
-          <FindIdButton onClick={onClick}>아이디 찾기</FindIdButton>
+          <FindIdButton>아이디 찾기</FindIdButton>
         </Form>
       )}
     </Container>

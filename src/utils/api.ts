@@ -9,7 +9,10 @@ interface IGetItems {
 export async function getItems({ search, page }: IGetItems) {
   try {
     const res = await axios.get(
-      `/blueprint?s=${search}&page=${page}&size=${8}`
+      `/blueprint?s=${encodeURIComponent(search)}&page=${page}&size=${8}`,
+      {
+        withCredentials: true,
+      }
     );
     return res.data;
   } catch (error) {
@@ -90,7 +93,7 @@ export async function getAllItems(page: number, size: number) {
 }
 
 interface IGetCategoryItems {
-  category: string;
+  category?: string;
   page: number;
 }
 
@@ -98,7 +101,7 @@ interface IGetCategoryItems {
 export async function getCategoryItems({ category, page }: IGetCategoryItems) {
   try {
     const res = await axios.get(
-      `/blueprint/c?category=${category}&page=${page}&size=${8}`
+      `/blueprint/${category}?&size=${8}&page=${page}`
     );
     return res.data;
   } catch (error) {
