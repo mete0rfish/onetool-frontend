@@ -62,7 +62,6 @@ const RightContainer = styled.div`
 const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 277px;
   gap: 10px;
   padding: 16px 0;
   border-bottom: 1px solid #88888a50;
@@ -106,8 +105,8 @@ const CurrentPrice = styled.div`
   }
 `;
 
-const TextBox = styled.div`
-  font-weight: 700;
+const TextBox = styled.span`
+  font-weight: 800;
   font-size: 15.13px;
   line-height: 25.6px;
   color: #313135;
@@ -139,7 +138,6 @@ const CompatibleProgramsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin: -10px 0 16px;
 `;
 
 const CompatibleProgram = styled.div`
@@ -168,11 +166,17 @@ const ButtonsContainer = styled.div`
   gap: 1rem;
 `;
 
-const BuyButton = styled(Link)`
+interface BuyButtonProps {
+  bgColor?: string;
+  color?: string;
+}
+
+const BuyButton = styled(Link)<BuyButtonProps>`
   height: 48px;
   width: 100%;
   max-width: 300px;
-  background-color: #3912e7;
+  background-color: ${({ bgColor }) => bgColor || "#3912e7"};
+  color: ${({ color }) => color || "white"};
   cursor: pointer;
   border-radius: 8px;
   font-weight: 600;
@@ -180,11 +184,11 @@ const BuyButton = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
   text-decoration: none;
+  border: 1px solid rgba(136, 136, 138, 1);
 
   &:hover {
-    background-color: #0e3aeb;
+    background-color: ${({ bgColor }) => (bgColor ? bgColor : "#0e3aeb")};
   }
 `;
 
@@ -214,8 +218,7 @@ const QRImg = styled.img`
 `;
 
 const SecondContainer = styled.div`
-  width: 80%;
-  padding: 1rem;
+  width: 100%;
   margin: 50px 0;
   display: flex;
   flex-direction: column;
@@ -259,7 +262,9 @@ const BlueBox = styled.div`
 
 const MainImg = styled.img`
   width: 700px;
-  height: 700px;
+  height: 480px;
+  object-fit: cover;
+  object-position: center;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
@@ -323,18 +328,14 @@ const DetailedItem = () => {
                   </PriceContainer>
                   <InfoContainer>
                     <TextBox>상품정보</TextBox>
-                    <InnerTextBox>확장자</InnerTextBox>
+                    <InnerTextBox>파일 확장자</InnerTextBox>
                     <FileExtension>{data.result.extension}</FileExtension>
-                    <InnerTextBox>프로그램</InnerTextBox>
+                    <InnerTextBox>사용 가능 프로그램</InnerTextBox>
                     <CompatibleProgramsContainer>
                       <CompatibleProgram>
                         {data.result.program}
                       </CompatibleProgram>
                     </CompatibleProgramsContainer>
-                    <InnerTextBox>카테고리</InnerTextBox>
-                    <Tags>
-                      <Tag>{data.result.categoryId}</Tag>
-                    </Tags>
                   </InfoContainer>
                   <ButtonsContainer>
                     <BuyButton
@@ -344,10 +345,15 @@ const DetailedItem = () => {
                     >
                       구매문의 하기
                     </BuyButton>
-                    <QRContainer>
-                      <QRTitle>설문조사 하기!</QRTitle>
-                      <QRImg src="/qr.png" alt="설문조사 QR" />
-                    </QRContainer>
+                    <BuyButton
+                      bgColor="tranparent"
+                      color="black"
+                      to={
+                        "https://docs.google.com/forms/d/e/1FAIpQLSdRLzlCtOT-Gce34D3BDqxG6JzKj0bQXSQizRFMpuTJ9x82EQ/viewform"
+                      }
+                    >
+                      장바구니
+                    </BuyButton>
                   </ButtonsContainer>
                 </RightContainer>
               </FirstContainer>
