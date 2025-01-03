@@ -9,7 +9,10 @@ interface IGetItems {
 export async function getItems({ search, page }: IGetItems) {
   try {
     const res = await axios.get(
-      `/blueprint?s=${search}&page=${page}&size=${8}`
+      `/blueprint?s=${encodeURIComponent(search)}&page=${page}&size=${8}`,
+      {
+        withCredentials: true,
+      }
     );
     return res.data;
   } catch (error) {

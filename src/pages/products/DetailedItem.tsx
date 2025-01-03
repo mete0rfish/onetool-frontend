@@ -5,6 +5,9 @@ import { useParams } from "react-router-dom";
 import { blueprint, IBluePrintDetail } from "../../dummy/blueprint";
 import { formatPrice } from "../../utils/formatPrice";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getDetailItem } from "../../utils/api";
+import { useEffect } from "react";
 
 const OuterContainer = styled.div`
   display: flex;
@@ -274,61 +277,92 @@ const DetailImg = styled.img`
   }
 `;
 
+interface DetailItemResultProps {
+  id: number;
+  blueprintName: string;
+  categoryId: number;
+  standardPrice: number;
+  blueprintImg: string;
+  blueprintDetails: string;
+  extension: string;
+  program: string;
+  hits: boolean;
+  salePrice: number;
+  saleExpiredDate: boolean;
+  creatorName: string;
+  downloadLink: string;
+}
+
+interface DetailItemProps {
+  result: DetailItemResultProps;
+}
+
 const DetailedItem = () => {
-  const params = useParams();
-  const data: IBluePrintDetail = blueprint[Number(params.id) - 1];
+  const { id } = useParams();
+  const { data, isLoading } = useQuery<DetailItemProps>({
+    queryKey: ["detail", id],
+    queryFn: () => getDetailItem(Number(id)),
+  });
 
   return (
     <>
-      <TopNavBar />
-      <OuterContainer>
-        <MainContainer>
-          <FirstContainer>
-            <MainImg src={`${data.blueprintImg}`} alt="Big Item" />
-            <RightContainer>
-              <CompanyName>ONETOOL</CompanyName>
-              <ItemName>{data.blueprintName}</ItemName>
-              <PriceContainer>
-                <CurrentPrice>{formatPrice(data.standardPrice)}원</CurrentPrice>
-              </PriceContainer>
-              <InfoContainer>
-                <TextBox>상품정보</TextBox>
-                <InnerTextBox>확장자</InnerTextBox>
-                <FileExtension>{data.extension}</FileExtension>
-                <InnerTextBox>프로그램</InnerTextBox>
-                <CompatibleProgramsContainer>
-                  <CompatibleProgram>{data.program}</CompatibleProgram>
-                </CompatibleProgramsContainer>
-                <InnerTextBox>카테고리</InnerTextBox>
-                <Tags>
-                  <Tag>{data.categoryId}</Tag>
-                </Tags>
-              </InfoContainer>
-              <ButtonsContainer>
-                <BuyButton
-                  to={
-                    "https://docs.google.com/forms/d/e/1FAIpQLSdRLzlCtOT-Gce34D3BDqxG6JzKj0bQXSQizRFMpuTJ9x82EQ/viewform"
-                  }
-                >
-                  구매문의 하기
-                </BuyButton>
-                <QRContainer>
-                  <QRTitle>설문조사 하기!</QRTitle>
-                  <QRImg src="/qr.png" alt="설문조사 QR" />
-                </QRContainer>
-              </ButtonsContainer>
-            </RightContainer>
-          </FirstContainer>
-          <SecondContainer>
-            <ToggleBar>
-              <ToggleButton>상세설명</ToggleButton>
-            </ToggleBar>
-            <BlueBox>{data.blueprintDetails}</BlueBox>
-            <DetailImg src={`${data.blueprintDetailImg}`} alt="" />
-          </SecondContainer>
-        </MainContainer>
-      </OuterContainer>
-      <Footer />
+      {!data ? null : (
+        <>
+          <TopNavBar />
+          <OuterContainer>
+            <MainContainer>
+              <FirstContainer>
+                <MainImg src={`${data.result.blueprintImg}`} alt="Big Item" />
+                <RightContainer>
+                  <CompanyName>ONETOOL</CompanyName>
+                  <ItemName>{data.result.blueprintName}</ItemName>
+                  <PriceContainer>
+                    <CurrentPrice>
+                      {formatPrice(data.result.standardPrice)}원
+                    </CurrentPrice>
+                  </PriceContainer>
+                  <InfoContainer>
+                    <TextBox>상품정보</TextBox>
+                    <InnerTextBox>확장자</InnerTextBox>
+                    <FileExtension>{data.result.extension}</FileExtension>
+                    <InnerTextBox>프로그램</InnerTextBox>
+                    <CompatibleProgramsContainer>
+                      <CompatibleProgram>
+                        {data.result.program}
+                      </CompatibleProgram>
+                    </CompatibleProgramsContainer>
+                    <InnerTextBox>카테고리</InnerTextBox>
+                    <Tags>
+                      <Tag>{data.result.categoryId}</Tag>
+                    </Tags>
+                  </InfoContainer>
+                  <ButtonsContainer>
+                    <BuyButton
+                      to={
+                        "https://docs.google.com/forms/d/e/1FAIpQLSdRLzlCtOT-Gce34D3BDqxG6JzKj0bQXSQizRFMpuTJ9x82EQ/viewform"
+                      }
+                    >
+                      구매문의 하기
+                    </BuyButton>
+                    <QRContainer>
+                      <QRTitle>설문조사 하기!</QRTitle>
+                      <QRImg src="/qr.png" alt="설문조사 QR" />
+                    </QRContainer>
+                  </ButtonsContainer>
+                </RightContainer>
+              </FirstContainer>
+              <SecondContainer>
+                <ToggleBar>
+                  <ToggleButton>상세설명</ToggleButton>
+                </ToggleBar>
+                <BlueBox>{data.result.blueprintDetails}</BlueBox>
+                <DetailImg src={`${data.result.blueprintImg}`} alt="" />
+              </SecondContainer>
+            </MainContainer>
+          </OuterContainer>
+          <Footer />
+        </>
+      )}
     </>
   );
 };

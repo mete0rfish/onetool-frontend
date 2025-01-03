@@ -114,7 +114,7 @@ const LeftSidebar = () => {
           </MainCategoryContainer>
 
           <MainCategoryContainer>
-            <Category to={"/items/interior"}>인테리어 도면</Category>
+            <Category to={"/items/category/interior"}>인테리어 도면</Category>
             <SubCategoryContainer>
               <SubCategory onClick={handleSubCategoryClick}>- 주거</SubCategory>
               <SubCategory onClick={handleSubCategoryClick}>- 상업</SubCategory>
@@ -125,7 +125,7 @@ const LeftSidebar = () => {
           </MainCategoryContainer>
 
           <MainCategoryContainer>
-            <Category to={"/items"}>기계 도면</Category>
+            <Category to={"/items/category/machine"}>기계 도면</Category>
             <SubCategoryContainer>
               <SubCategory onClick={handleSubCategoryClick}>
                 - 기계부품
@@ -135,14 +135,14 @@ const LeftSidebar = () => {
           </MainCategoryContainer>
 
           <MainCategoryContainer>
-            <Category to={"/items"}>전기 도면</Category>
+            <Category to={"/items/category/electric"}>전기 도면</Category>
             <SubCategoryContainer>
               <SubCategory onClick={handleSubCategoryClick}>- 전기</SubCategory>
             </SubCategoryContainer>
           </MainCategoryContainer>
 
           <MainCategoryContainer>
-            <Category to={"/items"}>기타 도면</Category>
+            <Category to={"/items/category/etc"}>기타 도면</Category>
           </MainCategoryContainer>
         </CategoryContainer>
       </HorizontalBorder>
