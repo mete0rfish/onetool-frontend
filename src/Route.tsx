@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import ListedItems from "./pages/products/ListedItems";
 import DetailedItem from "./pages/products/DetailedItem";
 import Login from "./pages/user/Login";
@@ -15,6 +15,37 @@ import Join from "./pages/user/Join";
 import Profile from "./pages/user/Profile";
 import ErrorComponent from "./components/ErrorComponent";
 import MainPage from "./pages/home/MainPage";
+import { useEffect, useState } from "react";
+import { isUserLoggedIn } from "./utils/api";
+
+interface ProtectedRouteProps {
+  children: React.ReactNode;
+}
+
+const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      const loggedIn = await isUserLoggedIn();
+      setIsAuthenticated(loggedIn);
+      setIsLoading(false);
+    };
+
+    checkAuthentication();
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>; // 로딩 중 상태를 나타내는 UI
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/users/login" />;
+  }
+
+  return <>{children}</>;
+};
 
 const router = createBrowserRouter([
   {
@@ -74,7 +105,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <ShoppingCart />,
+        element: (
+          <ProtectedRoute>
+            <ShoppingCart />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

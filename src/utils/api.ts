@@ -131,6 +131,16 @@ export async function getCartItems() {
   }
 }
 
+// user 관련 api
+export async function isUserLoggedIn() {
+  try {
+    const res = await axios.get(`/validate`);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
 export async function getUserInfo() {
   try {
     const res = await axios.get(`/users`, {

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "../../components/Input";
 import UserFormGroup from "./components/UserFormGroup";
 import UserLabel from "./components/UserLabel";
@@ -97,18 +97,23 @@ interface ILoginForm {
 
 const Login = () => {
   const { register, handleSubmit } = useForm<ILoginForm>();
+  const navigate = useNavigate();
 
   const onValid = async ({ email, password }: ILoginForm) => {
     try {
       const res = await axios.post(
-        "http://3.37.212.144:8080/users/login",
+        "/users/login",
         {
           email,
           password,
         },
         { withCredentials: true }
       );
-      console.log(res);
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${res.data.result}`;
+      alert("로그인 성공!");
+      navigate("/");
     } catch (error) {
       console.error("Login failed", error);
     }
