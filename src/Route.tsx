@@ -25,7 +25,6 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const [auth, setAuth] = useRecoilState(authState);
-  const navigate = useNavigate();
 
   if (!auth.isAuthenticated) {
     return <Navigate to="/users/login" />;

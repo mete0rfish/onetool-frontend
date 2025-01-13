@@ -137,21 +137,17 @@ export async function onSilentRefresh(
   setAuth: (authState: { isAuthenticated: boolean; token: string }) => void
 ) {
   try {
-    const res = await axios.post(
-      "/silent-refresh",
-      {},
-      { withCredentials: true }
-    );
+    const res = await axios.post("/silent-refresh");
 
     if (!res.data.isSuccess) {
       throw new Error("Token refresh failed");
     }
-
-    onLoginSuccess(res.data, setAuth);
+    onLoginSuccess(res.data.result, setAuth);
   } catch (error) {
-    console.error("Error during silent refresh:", error);
+    console.error("Error during silent refresh:", error); //에러도 제거해야됨
+    // recoil 상태 변경 필요??(기본값이 false니까 안해도 될지도..)
 
-    alert("로그인 갱신 실패. 다시 로그인해주세요.");
+    alert("로그인 갱신 실패. 다시 로그인해주세요."); // alert 제거해야됨
   }
 }
 
