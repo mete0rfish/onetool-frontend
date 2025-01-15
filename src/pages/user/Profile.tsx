@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { getUserInfo, getUserPurchase, getUserQna } from "../../utils/api";
 import { useQuery } from "@tanstack/react-query";
+import { useRecoilState } from "recoil";
+import { authState } from "../../atoms/authAtom";
 
 const Container = styled.div`
   display: flex;
@@ -344,6 +346,7 @@ const Profile = () => {
   } = useForm<IForm>();
 
   const navigate = useNavigate();
+  const [auth, setAuth] = useRecoilState(authState);
 
   const allChangeClick = async ({
     name,
@@ -381,9 +384,16 @@ const Profile = () => {
     }
   };
 
-  const logOutClick = () => {
-    alert("로그아웃 되었습니다.");
-    navigate("/");
+  const logOutClick = async () => {
+    const res = await axios.delete("/users/logout");
+    if (res.data.isSuccess) {
+      alert("로그아웃 되었습니다.");
+      const updateAuth = { isAuthenticated: false };
+      setAuth(updateAuth);
+      navigate("/");
+    } else {
+      alert("이미 로그아웃 되었습니다.");
+    }
   };
 
   if (profileIsLoading || purchasedIsLoading || userQnaIsLoading) {
