@@ -113,6 +113,8 @@ const AllItemsPage = () => {
       return getCategoryItems({ category, page });
     },
   });
+  // refactoring 필요함. all api를 버리고 전부 sort api로 받아오는걸로 통일
+  // category id?, 정렬 방식, 오름/내림,
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
