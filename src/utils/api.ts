@@ -118,19 +118,6 @@ export async function getDetailItem(id: number) {
   }
 }
 
-export async function getCartItems() {
-  try {
-    const res = await axios.get(`/cart`, {
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-      },
-    });
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 // user 관련 api
 
 export async function onSilentRefresh(
@@ -186,6 +173,34 @@ export async function getUserPurchase() {
 export async function getUserQna() {
   try {
     const res = await axios.get(`/users/myQna`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// 장바구니, 결제관련 로직
+export async function getCartItems() {
+  try {
+    const res = await axios.get(`/cart`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function addCartItems(blueprintId: number) {
+  try {
+    const res = await axios.post(`/api/cart/add/${blueprintId}`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteCartItems(blueprintId: number) {
+  try {
+    const res = await axios.delete(`/api/cart/delete/${blueprintId}`);
     return res.data;
   } catch (error) {
     console.log(error);

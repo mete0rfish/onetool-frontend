@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import TopNavBar from "../../components/TopNavBar";
 import Footer from "../../components/Footer";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { blueprint, IBluePrintDetail } from "../../dummy/blueprint";
 import { formatPrice } from "../../utils/formatPrice";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getDetailItem } from "../../utils/api";
+import { addCartItems, getDetailItem } from "../../utils/api";
 import { useEffect } from "react";
 
 const OuterContainer = styled.div`
@@ -171,7 +171,7 @@ interface BuyButtonProps {
   color?: string;
 }
 
-const BuyButton = styled(Link)<BuyButtonProps>`
+const BuyButton = styled.button<BuyButtonProps>`
   height: 48px;
   width: 100%;
   max-width: 300px;
@@ -304,10 +304,26 @@ interface DetailItemProps {
 
 const DetailedItem = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data, isLoading } = useQuery<DetailItemProps>({
     queryKey: ["detail", id],
     queryFn: () => getDetailItem(Number(id)),
   });
+
+  const handleBuyClick = async (blueprintId: number) => {
+    const data = await addCartItems(blueprintId);
+    if (data.message === "Success") {
+      navigate("/payment");
+    }
+  };
+
+  const handleCartClick = async (blueprintId: number) => {
+    const data = await addCartItems(blueprintId);
+
+    if (data.message === "Success") {
+      navigate("/cart");
+    }
+  };
 
   return (
     <>
@@ -338,19 +354,13 @@ const DetailedItem = () => {
                     </CompatibleProgramsContainer>
                   </InfoContainer>
                   <ButtonsContainer>
-                    <BuyButton
-                      to={
-                        "https://docs.google.com/forms/d/e/1FAIpQLSdRLzlCtOT-Gce34D3BDqxG6JzKj0bQXSQizRFMpuTJ9x82EQ/viewform"
-                      }
-                    >
-                      구매문의 하기
+                    <BuyButton onClick={() => handleBuyClick(Number(id))}>
+                      구매하기
                     </BuyButton>
                     <BuyButton
+                      onClick={() => handleCartClick(Number(id))}
                       bgColor="tranparent"
                       color="black"
-                      to={
-                        "https://docs.google.com/forms/d/e/1FAIpQLSdRLzlCtOT-Gce34D3BDqxG6JzKj0bQXSQizRFMpuTJ9x82EQ/viewform"
-                      }
                     >
                       장바구니
                     </BuyButton>
