@@ -286,7 +286,9 @@ const ShoppingCart = () => {
                     {formatPrice(data.result.totalPrice)}원
                   </ToTalPrice>
                 </SummaryText>
-                <OrderButton>주문하기</OrderButton>
+                <Link to="/payment">
+                  <OrderButton>주문하기</OrderButton>
+                </Link>
                 <Link to="/items">
                   <ShoppingButton>계속 쇼핑하기</ShoppingButton>
                 </Link>
