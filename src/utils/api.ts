@@ -41,10 +41,6 @@ export interface BlueprintProps {
   cartBlueprints: any[];
 }
 
-interface ContentProps {
-  blueprint: BlueprintProps;
-}
-
 interface SortProps {
   empty: boolean;
   unsorted: boolean;
@@ -66,7 +62,7 @@ interface ResultProps {
   first: boolean;
   last: boolean;
   size: number;
-  content: ContentProps[];
+  content: BlueprintProps[];
   number: number;
   sort: SortProps;
   numberOfElements: number;
