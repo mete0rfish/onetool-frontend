@@ -149,10 +149,7 @@ const AllItemsPage = () => {
                 </FilterContainer>
                 <ItemsGrid>
                   {data.result.content.map((item) => (
-                    <ItemCard
-                      key={item.blueprint.id}
-                      blueprint={item.blueprint}
-                    />
+                    <ItemCard key={item.id} blueprint={item} />
                   ))}
                 </ItemsGrid>
                 <PaginationContainer>

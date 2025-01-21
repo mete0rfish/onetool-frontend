@@ -41,10 +41,6 @@ export interface BlueprintProps {
   cartBlueprints: any[];
 }
 
-interface ContentProps {
-  blueprint: BlueprintProps;
-}
-
 interface SortProps {
   empty: boolean;
   unsorted: boolean;
@@ -66,7 +62,7 @@ interface ResultProps {
   first: boolean;
   last: boolean;
   size: number;
-  content: ContentProps[];
+  content: BlueprintProps[];
   number: number;
   sort: SortProps;
   numberOfElements: number;
@@ -112,19 +108,6 @@ export async function getCategoryItems({ category, page }: IGetCategoryItems) {
 export async function getDetailItem(id: number) {
   try {
     const res = await axios.get(`/blueprint/${id}`);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export async function getCartItems() {
-  try {
-    const res = await axios.get(`/cart`, {
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-      },
-    });
     return res.data;
   } catch (error) {
     console.log(error);
@@ -186,6 +169,34 @@ export async function getUserPurchase() {
 export async function getUserQna() {
   try {
     const res = await axios.get(`/users/myQna`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// 장바구니, 결제관련 로직
+export async function getCartItems() {
+  try {
+    const res = await axios.get(`/cart`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function addCartItems(blueprintId: number) {
+  try {
+    const res = await axios.post(`/api/cart/add/${blueprintId}`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteCartItems(blueprintId: number) {
+  try {
+    const res = await axios.delete(`/api/cart/delete/${blueprintId}`);
     return res.data;
   } catch (error) {
     console.log(error);
