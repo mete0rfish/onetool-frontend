@@ -55,7 +55,7 @@ const Xbutton = styled(GoX)`
 
 interface IItemProps {
   item: {
-    blueprintId: number;
+    id: number;
     blueprintImg: string;
     blueprintName: string;
     blueprintPrice: number;
@@ -69,17 +69,17 @@ const Item = ({ item, checked, onCheck }: IItemProps) => {
     onCheck(item);
   };
 
-  console.log(item);
-
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
-    mutationFn: (blueprintId: number) => deleteCartItems(item.blueprintId),
+    mutationFn: (id: number) => deleteCartItems(item.id),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["cartItems"] }),
   });
 
-  const onClick = (blueprintId: number) => {
-    mutate(blueprintId);
+  const onClick = (id: number) => {
+    console.log("장바구니 삭제");
+
+    mutate(id);
   };
 
   return (
@@ -95,7 +95,7 @@ const Item = ({ item, checked, onCheck }: IItemProps) => {
       </ItemDetails>
       <ItemPriceDetail>
         {/* <ItemPrice>{item.blueprintPrice.toLocaleString()}원</ItemPrice> */}
-        <Xbutton onClick={() => onClick(item.blueprintId)} />
+        <Xbutton onClick={() => onClick(item.id)} />
       </ItemPriceDetail>
     </CartItem>
   );

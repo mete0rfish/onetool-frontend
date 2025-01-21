@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { blueprint, IBluePrintDetail } from "../../dummy/blueprint";
 import { formatPrice } from "../../utils/formatPrice";
 import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { addCartItems, getDetailItem } from "../../utils/api";
 import { useEffect } from "react";
 
@@ -305,6 +305,7 @@ interface DetailItemProps {
 const DetailedItem = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { data, isLoading } = useQuery<DetailItemProps>({
     queryKey: ["detail", id],
     queryFn: () => getDetailItem(Number(id)),
@@ -320,8 +321,11 @@ const DetailedItem = () => {
   const handleCartClick = async (blueprintId: number) => {
     const data = await addCartItems(blueprintId);
 
-    if (data.message === "Success") {
+    if (data.isSuccess === true) {
+      queryClient.invalidateQueries({ queryKey: ["cartItems"] });
       navigate("/cart");
+    } else {
+      alert("이미 장바구니에 아이템이 존재합니다!");
     }
   };
 

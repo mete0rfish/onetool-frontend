@@ -170,7 +170,7 @@ interface BlueprintCategoryProp {
 
 // Blueprint Interface
 interface BlueprintProps {
-  blueprintId: number;
+  id: number;
   blueprintName: string;
   blueprintPrice: number;
   blueprintAuthor: string;
@@ -200,8 +200,10 @@ const ShoppingCart = () => {
 
   // 전체 선택 상태 계산 (모든 아이템이 체크되었는지 확인)
   const allChecked =
-    data?.result.blueprintsInCart.length === checkedItems.length &&
-    checkedItems.length > 0;
+    data && data.result.blueprintsInCart
+      ? data.result.blueprintsInCart.length === checkedItems.length &&
+        checkedItems.length > 0
+      : false;
 
   const formatPrice = (price: number) => {
     return price?.toLocaleString();
@@ -219,9 +221,7 @@ const ShoppingCart = () => {
   // 개별 아이템 선택/해제
   const handleCheck = (item: BlueprintProps) => {
     if (checkedItems.includes(item)) {
-      setCheckedItems(
-        checkedItems.filter((i) => i.blueprintId !== item.blueprintId)
-      );
+      setCheckedItems(checkedItems.filter((i) => i.id !== item.id));
       console.log("delete");
     } else {
       console.log("add");
@@ -240,14 +240,16 @@ const ShoppingCart = () => {
   if (data) {
     return (
       <Container>
-        {data.result.blueprintsInCart.length === 0 ? (
+        {!data.result.blueprintsInCart ? (
           <Wrapper>
             <Circle>
               <BsCart4 />
             </Circle>
             <Empty>장바구니가 비어있어요.</Empty>
             <Go>지금 담으러 가볼까요?</Go>
-            <FamLink to={"/items"}>인기 작품 구경 가기 &rarr;</FamLink>
+            <FamLink to={"/items/category/all"}>
+              인기 작품 구경 가기 &rarr;
+            </FamLink>
           </Wrapper>
         ) : (
           <Wrapper>
