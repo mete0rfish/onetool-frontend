@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getPayItems } from "../../utils/api";
 import TossWidget from "../../components/TossWidget";
+import { usePaymentWidget } from "../../hooks/usePaymentWidget";
+import { useForm } from "react-hook-form";
 
 const Title = styled.span`
   font-size: 22px;
@@ -243,17 +245,30 @@ interface PayItemsProps {
   price: number;
 }
 
+interface PayFormProps {
+  name: string;
+  phone: string;
+  email: string;
+}
+
 const Payment = () => {
-  const { data, isLoading, error } = useQuery<PayResultProps>({
+  const { data, isLoading } = useQuery<PayResultProps>({
     queryKey: ["payItems"],
     queryFn: getPayItems,
   });
-  const [cardToggle, setCardToggle] = useState(false);
 
+  const { handlePaymentRequest } = usePaymentWidget();
+  const [step, setStep] = useState(1); // 1: 주문상품, 주문자 정보, 사용권, 2: 결제
   const [personState, setPersonState] = useState<boolean>(true);
   const [institutionState, setInstitutionState] = useState<boolean>(false);
-  const [totalAmount, setToalAmout] = useState<number>(0);
-  const navigate = useNavigate();
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm<PayFormProps>();
 
   const onPersonClicked = () => {
     setPersonState(true);
@@ -265,198 +280,142 @@ const Payment = () => {
     setInstitutionState(true);
   };
 
-  const [checkedItems, setCheckedItems] = useState<CheckedItems>({
-    terms: false,
-    productInfo: false,
-    emailConfirm: false,
-  });
-
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = event.target;
-    setCheckedItems((prevState) => ({
-      ...prevState,
-      [name]: checked,
-    }));
-  };
-
-  const handlePurchaseClick = () => {
-    if (!isAllChecked()) {
-      alert("유의사항에 전부 동의해주세요!");
-    } else {
-      // 주문 성공 페이지로 이동
-      navigate("/payment/success");
-    }
-  };
-
-  const isAllChecked = () => {
-    return Object.values(checkedItems).every(Boolean);
-  };
-
   useEffect(() => {
     if (data && data.result) {
-      const total = data.result.reduce((ac, cur) => ac + cur.price, 0);
-      setToalAmout(total);
+      const total = data.result.reduce((acc, cur) => acc + cur.price, 0);
+      setTotalAmount(total);
     }
   }, [data]);
 
+  const handleNextStep = () => {
+    if (step < 2) setStep(step + 1);
+  };
+
+  const handlePreviousStep = () => {
+    if (step > 1) setStep(step - 1);
+  };
+
+  const onSubmit = async () => {
+    if (step === 2) {
+      //await handlePaymentRequest();
+    }
+  };
+
   if (isLoading) {
-    <div>Loading...</div>;
+    return <div>Loading...</div>;
   }
 
-  return data && data.isSuccess === true ? (
+  return data && data.result.length > 0 ? (
     <Wrapper>
       <Title>주문서</Title>
-      <Banner>
-        <LuBox />
-        <span>주문상품</span>
-      </Banner>
-      {data.result.map((item) => (
-        <CartItem key={item.blueprintId}>
-          {/* <ItemImage src={item.} alt={item.name} /> */}
-          <ItemDetails>
-            <ItemName>{item.blueprintName}</ItemName>
-          </ItemDetails>
-          <ItemPriceDetail>
-            <ItemPrice>{item.price.toLocaleString()}원</ItemPrice>
-          </ItemPriceDetail>
-        </CartItem>
-      ))}
-      <Banner>
-        <FaRegUser />
-        <span>주문자</span>
-      </Banner>
-      <Form>
-        <FormGroup>
-          <Label>주문자명</Label>
-          <Input type="text" placeholder="(예시)홍길동" />
-        </FormGroup>
-        <FormGroup>
-          <Label>휴대폰 번호</Label>
-          <Input type="text" placeholder="휴대폰 번호" />
-        </FormGroup>
-        <FormGroup>
-          <Label>이메일</Label>
-          <Input type="text" placeholder="example@example.com" />
-        </FormGroup>
-      </Form>
-      <Banner>
-        <LuPencilLine />
-        <span>사용권</span>
-      </Banner>
-      <BoxTitle>사용권 유형</BoxTitle>
-      <BoxWrapper>
-        <Box onClick={onPersonClicked} isActive={personState}>
-          <input
-            type="radio"
-            checked={personState}
-            onChange={onPersonClicked}
-          />
-          <span>개인 사용권</span>
-          <p>
-            필명이 작품에 반드시 표시되어야 해요. 본인만 사용 가능하고, 공유할
-            수 없어요. 여러 작품에 사용 가능해요. 작품마다 다 른 필명을 사용할
-            경우, 모든 필명을 입력 해주세요.
-          </p>
-        </Box>
-        <Box onClick={onInstitutionClicked} isActive={institutionState}>
-          <input
-            type="radio"
-            checked={institutionState}
-            onChange={onInstitutionClicked}
-          />
-          <span>기업 사용권</span>
-          <p>
-            등록한 1개의 작품에만 사용할 수 있어 요. 등록한 작품명과 실제 사용
-            작품명이 반 드시 일치해야 해요. 등록한 작품을 작업하는 모든 작가가
-            사 용할 수 있어요.
-          </p>
-        </Box>
-      </BoxWrapper>
-      <Banner>
-        <FaWonSign />
-        <span>결제 금액</span>
-      </Banner>
-      <PriceWrapper>
-        <TotalPrice>
-          <span>총 상품 금액</span>
-          <span>{totalAmount.toLocaleString()}원</span>
-        </TotalPrice>
-        <Discount>
-          <span>총 할인 금액</span>
-          <span>-{0}원</span>
-        </Discount>
-      </PriceWrapper>
-      <FinalPrice>
-        <span>최종 결제 금액</span>
-        <span>{totalAmount.toLocaleString()}원</span>
-      </FinalPrice>
-      <Banner>
-        <MdOutlinePayment />
-        <span>결제 수단</span>
-      </Banner>
-      {/* <CardWrapper>
-        <Card onClick={() => setCardToggle(false)} isActive={!cardToggle}>
-          <BsCreditCardFill />
-          <span>신용카드</span>
-        </Card>
-        <Card onClick={() => setCardToggle(true)} isActive={cardToggle}>
-          <MdAccountBalance />
-          <span>가상계좌</span>
-        </Card>
-      </CardWrapper> */}
-      <TossWidget />
-      {/* <Banner>
-        <AiOutlineExclamationCircle />
-        <span>유의 사항 및 구매 확인</span>
-      </Banner> */}
-      {/* <CheckBoxWrapper>
-        <div>
-          <input
-            type="checkbox"
-            name="terms"
-            checked={checkedItems.terms}
-            onChange={handleCheckboxChange}
-            required={true}
-          />
-          <p>
-            유의사항 및 최종 사용자 라이센스계약을 확인하였습니다.
-            <span> (필수)</span>
-          </p>
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            name="productInfo"
-            checked={checkedItems.productInfo}
-            onChange={handleCheckboxChange}
-            required={true}
-          />
-          <p>
-            구매하실 상품의 확장자 등 상품 및 결제정보를 확인하였으며,
-            구매진행에 동의합니다. <span> (필수)</span>
-          </p>
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            name="emailConfirm"
-            checked={checkedItems.emailConfirm}
-            onChange={handleCheckboxChange}
-            required={true}
-          />
-          <p>
-            구매한 상품은 이메일로 전송됩니다. 이메일이 정확한지 다시 한번 확인
-            하십시오.
-            <span> (필수)</span>
-          </p>
-        </div>
-      </CheckBoxWrapper> */}
+
+      {step === 1 && (
+        <>
+          <Banner>주문상품</Banner>
+          {data?.result.map((item) => (
+            <CartItem key={item.blueprintId}>
+              <ItemDetails>
+                <ItemName>{item.blueprintName}</ItemName>
+              </ItemDetails>
+              <ItemPriceDetail>
+                <ItemPrice>{item.price.toLocaleString()}원</ItemPrice>
+              </ItemPriceDetail>
+            </CartItem>
+          ))}
+          <Form>
+            <FormGroup>
+              <Label>주문자명</Label>
+              <Input
+                type="text"
+                placeholder="홍길동"
+                {...register("name", { required: "이 필드는 필수입니다." })}
+              />
+              {errors.name && <span>{errors.name.message}</span>}
+            </FormGroup>
+            <FormGroup>
+              <Label>휴대폰 번호</Label>
+              <Input
+                type="text"
+                placeholder="010-1234-5678"
+                {...register("phone", { required: "이 필드는 필수입니다." })}
+              />
+              {errors.phone && <span>{errors.phone.message}</span>}
+            </FormGroup>
+            <FormGroup>
+              <Label>이메일</Label>
+              <Input
+                type="email"
+                placeholder="example@example.com"
+                {...register("email", { required: "이 필드는 필수입니다." })}
+              />
+              {errors.email && <span>{errors.email.message}</span>}
+            </FormGroup>
+          </Form>
+          <BoxTitle>사용권 유형</BoxTitle>
+          <BoxWrapper>
+            <Box onClick={onPersonClicked} isActive={personState}>
+              <input
+                type="radio"
+                checked={personState}
+                onChange={onPersonClicked}
+              />
+              <span>개인 사용권</span>
+              <p>
+                필명이 작품에 반드시 표시되어야 해요. 본인만 사용 가능하고,
+                공유할 수 없어요. 여러 작품에 사용 가능해요. 작품마다 다 른
+                필명을 사용할 경우, 모든 필명을 입력 해주세요.
+              </p>
+            </Box>
+            <Box onClick={onInstitutionClicked} isActive={institutionState}>
+              <input
+                type="radio"
+                checked={institutionState}
+                onChange={onInstitutionClicked}
+              />
+              <span>기업 사용권</span>
+              <p>
+                등록한 1개의 작품에만 사용할 수 있어 요. 등록한 작품명과 실제
+                사용 작품명이 반 드시 일치해야 해요. 등록한 작품을 작업하는 모든
+                작가가 사 용할 수 있어요.
+              </p>
+            </Box>
+          </BoxWrapper>
+        </>
+      )}
+
+      {step === 2 && (
+        <>
+          <Banner>결제 금액</Banner>
+          <PriceWrapper>
+            <TotalPrice>
+              <span>총 상품 금액</span>
+              <span>{totalAmount.toLocaleString()}원</span>
+            </TotalPrice>
+            <Discount>
+              <span>총 할인 금액</span>
+              <span>0원</span>
+            </Discount>
+            <FinalPrice>
+              <span>최종 결제 금액</span>
+              <span>{totalAmount.toLocaleString()}원</span>
+            </FinalPrice>
+          </PriceWrapper>
+          <TossWidget />
+        </>
+      )}
+
       <ButtonWrapper>
-        <PurchaseButton onClick={handlePurchaseClick}>주문하기</PurchaseButton>
+        {step < 2 ? (
+          <PurchaseButton onClick={handleNextStep}>다음</PurchaseButton>
+        ) : (
+          <PurchaseButton onClick={handleSubmit(onSubmit)}>
+            주문하기
+          </PurchaseButton>
+        )}
       </ButtonWrapper>
     </Wrapper>
   ) : (
-    <div>구매목록에 아무것도 없습니다.</div>
+    <div>구매할 상품이 없습니다.</div>
   );
 };
 

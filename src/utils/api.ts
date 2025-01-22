@@ -230,16 +230,3 @@ export async function deletePayItems() {
     console.log(error);
   }
 }
-
-//tosspayment 관련
-const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
-const customerKey = "xaszxdbW4vJ08QWeRLRdT";
-
-export async function fetchPaymentWidgets() {
-  try {
-    const res = await loadTossPayments(clientKey);
-    return res.widgets({ customerKey });
-  } catch (error) {
-    console.log(error);
-  }
-}
