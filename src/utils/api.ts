@@ -9,7 +9,7 @@ interface IGetItems {
 export async function getItems({ search, page }: IGetItems) {
   try {
     const res = await axios.get(
-      `/blueprint?s=${encodeURIComponent(search)}&page=${page}&size=${8}`,
+      `/blueprint?s=${encodeURIComponent(search)}&page=${page - 1}&size=${8}`,
       {
         withCredentials: true,
       }
@@ -80,7 +80,7 @@ export interface ItemProps {
 // 전체 카테고리
 export async function getAllItems(page: number, size: number) {
   try {
-    const res = await axios.get(`/blueprint/all?page=${page}&size=${size}`);
+    const res = await axios.get(`/blueprint/all?page=${page - 1}&size=${size}`);
 
     return res.data;
   } catch (error) {
@@ -97,7 +97,7 @@ interface IGetCategoryItems {
 export async function getCategoryItems({ category, page }: IGetCategoryItems) {
   try {
     const res = await axios.get(
-      `/blueprint/${category}?&size=${8}&page=${page}`
+      `/blueprint/${category}?&size=${8}&page=${page - 1}`
     );
     return res.data;
   } catch (error) {
@@ -186,12 +186,8 @@ export async function getCartItems() {
 }
 
 export async function addCartItems(blueprintId: number) {
-  try {
-    const res = await axios.post(`/api/cart/add/${blueprintId}`);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
+  const res = await axios.post(`/api/cart/add/${blueprintId}`);
+  return res.data;
 }
 
 export async function deleteCartItems(blueprintId: number) {
@@ -213,12 +209,8 @@ export async function getPayItems() {
 }
 
 export async function addPayItems(itemIdLists: number[]) {
-  try {
-    const res = await axios.post(`/cart/session/add`, itemIdLists);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
+  const res = await axios.post(`/cart/session/add`, itemIdLists);
+  return res.data;
 }
 
 export async function deletePayItems() {
