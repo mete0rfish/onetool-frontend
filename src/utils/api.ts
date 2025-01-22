@@ -202,3 +202,30 @@ export async function deleteCartItems(blueprintId: number) {
     console.log(error);
   }
 }
+
+export async function getPayItems() {
+  try {
+    const res = await axios.get(`/cart/session/get`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function addPayItems(itemIdLists: number[]) {
+  try {
+    const res = await axios.post(`/cart/session/add`, itemIdLists);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deletePayItems() {
+  try {
+    const res = await axios.delete(`/cart/session/drop`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}

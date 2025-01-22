@@ -291,7 +291,7 @@ const ShoppingCart = () => {
                 <Link to="/payment">
                   <OrderButton>주문하기</OrderButton>
                 </Link>
-                <Link to="/items">
+                <Link to="/items/category/all">
                   <ShoppingButton>계속 쇼핑하기</ShoppingButton>
                 </Link>
               </CartSummary>

@@ -9,6 +9,8 @@ import { BsCreditCardFill } from "react-icons/bs";
 import { MdAccountBalance } from "react-icons/md";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getPayItems } from "../../utils/api";
 
 const Title = styled.span`
   font-size: 22px;
@@ -225,7 +227,26 @@ interface CheckedItems {
   emailConfirm: boolean;
 }
 
+interface PayResultProps {
+  isSuccess: boolean;
+  code: string;
+  message: string;
+  result: PayItemsProps[];
+}
+
+interface PayItemsProps {
+  blueprintId: number;
+  blueprintName: string;
+  extension: string;
+  author: string;
+  price: number;
+}
+
 const Payment = () => {
+  const { data, isLoading, error } = useQuery<PayResultProps>({
+    queryKey: ["payItems"],
+    queryFn: getPayItems,
+  });
   const [cardToggle, setCardToggle] = useState(false);
 
   const [personState, setPersonState] = useState<boolean>(true);
@@ -269,24 +290,28 @@ const Payment = () => {
     return Object.values(checkedItems).every(Boolean);
   };
 
-  return (
+  if (isLoading) {
+    <div>Loading...</div>;
+  }
+
+  return data && data.isSuccess === true ? (
     <Wrapper>
       <Title>주문서</Title>
       <Banner>
         <LuBox />
         <span>주문상품</span>
       </Banner>
-      {/* {items.map((item, index) => (
-        <CartItem key={index}>
-          <ItemImage src={item.image} alt={item.name} />
+      {data.result.map((item) => (
+        <CartItem key={item.blueprintId}>
+          {/* <ItemImage src={item.} alt={item.name} /> */}
           <ItemDetails>
-            <ItemName>{item.name}</ItemName>
+            <ItemName>{item.blueprintName}</ItemName>
           </ItemDetails>
           <ItemPriceDetail>
             <ItemPrice>{item.price.toLocaleString()}원</ItemPrice>
           </ItemPriceDetail>
         </CartItem>
-      ))} */}
+      ))}
       <Banner>
         <FaRegUser />
         <span>주문자</span>
@@ -420,6 +445,8 @@ const Payment = () => {
         <PurchaseButton onClick={handlePurchaseClick}>주문하기</PurchaseButton>
       </ButtonWrapper>
     </Wrapper>
+  ) : (
+    <div>구매목록에 아무것도 없습니다.</div>
   );
 };
 

@@ -6,7 +6,7 @@ import { blueprint, IBluePrintDetail } from "../../dummy/blueprint";
 import { formatPrice } from "../../utils/formatPrice";
 import { Link } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { addCartItems, getDetailItem } from "../../utils/api";
+import { addCartItems, addPayItems, getDetailItem } from "../../utils/api";
 import { useEffect } from "react";
 
 const OuterContainer = styled.div`
@@ -312,10 +312,12 @@ const DetailedItem = () => {
   });
 
   const handleBuyClick = async (blueprintId: number) => {
-    const data = await addCartItems(blueprintId);
-    if (data.message === "Success") {
-      navigate("/payment");
-    }
+    try {
+      const addPayItem = await addPayItems([blueprintId]);
+      if (addPayItem.isSuccess === true) {
+        navigate("/payment");
+      }
+    } catch (error) {}
   };
 
   const handleCartClick = async (blueprintId: number) => {
