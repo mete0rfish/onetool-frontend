@@ -315,6 +315,7 @@ const DetailedItem = () => {
     try {
       const addPayItem = await addPayItems([blueprintId]);
       if (addPayItem.isSuccess === true) {
+        queryClient.invalidateQueries({ queryKey: ["payItems"] });
         navigate("/payment");
       }
     } catch (error) {}

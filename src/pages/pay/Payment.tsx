@@ -7,10 +7,11 @@ import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { MdOutlinePayment } from "react-icons/md";
 import { BsCreditCardFill } from "react-icons/bs";
 import { MdAccountBalance } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getPayItems } from "../../utils/api";
+import TossWidget from "../../components/TossWidget";
 
 const Title = styled.span`
   font-size: 22px;
@@ -251,6 +252,7 @@ const Payment = () => {
 
   const [personState, setPersonState] = useState<boolean>(true);
   const [institutionState, setInstitutionState] = useState<boolean>(false);
+  const [totalAmount, setToalAmout] = useState<number>(0);
   const navigate = useNavigate();
 
   const onPersonClicked = () => {
@@ -289,6 +291,13 @@ const Payment = () => {
   const isAllChecked = () => {
     return Object.values(checkedItems).every(Boolean);
   };
+
+  useEffect(() => {
+    if (data && data.result) {
+      const total = data.result.reduce((ac, cur) => ac + cur.price, 0);
+      setToalAmout(total);
+    }
+  }, [data]);
 
   if (isLoading) {
     <div>Loading...</div>;
@@ -370,22 +379,22 @@ const Payment = () => {
       <PriceWrapper>
         <TotalPrice>
           <span>총 상품 금액</span>
-          {/* <span>{totalAmount.toLocaleString()}</span> */}
+          <span>{totalAmount.toLocaleString()}원</span>
         </TotalPrice>
         <Discount>
           <span>총 할인 금액</span>
-          <span>-{4000}</span>
+          <span>-{0}원</span>
         </Discount>
       </PriceWrapper>
       <FinalPrice>
         <span>최종 결제 금액</span>
-        {/* <span>{(totalAmount - 4000).toLocaleString()}</span> */}
+        <span>{totalAmount.toLocaleString()}원</span>
       </FinalPrice>
       <Banner>
         <MdOutlinePayment />
         <span>결제 수단</span>
       </Banner>
-      <CardWrapper>
+      {/* <CardWrapper>
         <Card onClick={() => setCardToggle(false)} isActive={!cardToggle}>
           <BsCreditCardFill />
           <span>신용카드</span>
@@ -394,12 +403,13 @@ const Payment = () => {
           <MdAccountBalance />
           <span>가상계좌</span>
         </Card>
-      </CardWrapper>
-      <Banner>
+      </CardWrapper> */}
+      <TossWidget />
+      {/* <Banner>
         <AiOutlineExclamationCircle />
         <span>유의 사항 및 구매 확인</span>
-      </Banner>
-      <CheckBoxWrapper>
+      </Banner> */}
+      {/* <CheckBoxWrapper>
         <div>
           <input
             type="checkbox"
@@ -440,7 +450,7 @@ const Payment = () => {
             <span> (필수)</span>
           </p>
         </div>
-      </CheckBoxWrapper>
+      </CheckBoxWrapper> */}
       <ButtonWrapper>
         <PurchaseButton onClick={handlePurchaseClick}>주문하기</PurchaseButton>
       </ButtonWrapper>
