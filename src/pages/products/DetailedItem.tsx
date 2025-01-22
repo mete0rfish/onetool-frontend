@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { addCartItems, addPayItems, getDetailItem } from "../../utils/api";
 import { useEffect } from "react";
+import RuleTable from "../../components/RuleTable";
 
 const OuterContainer = styled.div`
   display: flex;
@@ -381,6 +382,7 @@ const DetailedItem = () => {
                 <BlueBox>{data.result.blueprintDetails}</BlueBox>
                 <DetailImg src={`${data.result.blueprintImg}`} alt="" />
               </SecondContainer>
+              <RuleTable />
             </MainContainer>
           </OuterContainer>
           <Footer />
