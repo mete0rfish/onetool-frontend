@@ -1,5 +1,4 @@
-import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 interface IGetItems {
   search: string;

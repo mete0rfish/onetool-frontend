@@ -1,19 +1,11 @@
 import styled from "styled-components";
-import { LuBox } from "react-icons/lu";
-import { LuPencilLine } from "react-icons/lu";
-import { FaWonSign } from "react-icons/fa";
-import { FaRegUser } from "react-icons/fa6";
-import { AiOutlineExclamationCircle } from "react-icons/ai";
-import { MdOutlinePayment } from "react-icons/md";
-import { BsCreditCardFill } from "react-icons/bs";
-import { MdAccountBalance } from "react-icons/md";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getPayItems } from "../../utils/api";
-import TossWidget from "../../components/TossWidget";
-import { usePaymentWidget } from "../../hooks/usePaymentWidget";
 import { useForm } from "react-hook-form";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { payItems } from "../../atoms/authAtom";
+import TossWidget from "../../components/TossWidget";
 
 const Title = styled.span`
   font-size: 22px;
@@ -48,14 +40,6 @@ const CartItem = styled.div`
   &:last-child {
     border-bottom: 1px solid black;
   }
-`;
-
-const ItemImage = styled.img`
-  width: 145px;
-  height: 95px;
-  object-fit: cover;
-  border-radius: 6px;
-  margin-right: 24px;
 `;
 
 const ItemDetails = styled.div`
@@ -163,48 +147,6 @@ const FinalPrice = styled(Price)`
   padding: 10px 0;
 `;
 
-const CardWrapper = styled.div`
-  margin-top: 20px;
-  display: flex;
-  gap: 8px;
-`;
-
-const Card = styled.button<{ isActive: boolean }>`
-  width: 184px;
-  height: 48px;
-  border: ${(props) =>
-    props.isActive ? "1px solid #8e8eff" : "1px solid #A2A2A4"};
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  cursor: pointer;
-  background-color: ${({ isActive }) => (isActive ? "#8e8eff" : "transparent")};
-`;
-
-const CheckBoxWrapper = styled.div`
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  div {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  p {
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 20px;
-  }
-  span {
-    font-size: 11px;
-    font-weight: 400;
-    color: #4e4eff;
-  }
-`;
-
 const PurchaseButton = styled.button`
   width: 196px;
   height: 48px;
@@ -223,12 +165,6 @@ const ButtonWrapper = styled.div`
   justify-content: center;
   margin-top: 100px;
 `;
-
-interface CheckedItems {
-  terms: boolean;
-  productInfo: boolean;
-  emailConfirm: boolean;
-}
 
 interface PayResultProps {
   isSuccess: boolean;
@@ -257,7 +193,6 @@ const Payment = () => {
     queryFn: getPayItems,
   });
 
-  const { handlePaymentRequest } = usePaymentWidget();
   const [step, setStep] = useState(1); // 1: 주문상품, 주문자 정보, 사용권, 2: 결제
   const [personState, setPersonState] = useState<boolean>(true);
   const [institutionState, setInstitutionState] = useState<boolean>(false);
@@ -267,8 +202,21 @@ const Payment = () => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm<PayFormProps>();
+
+  const [payItemsState, setPayItemsState] = useRecoilState(payItems);
+
+  const handlePaymentRegister = ({ name, email, phone }: PayFormProps) => {
+    const newPayItems = {
+      customerEmail: email,
+      customerName: name,
+      customerMobilePhone: phone,
+      bluePrintNames: data ? data.result.map((item) => item.blueprintName) : [],
+      totalAmount,
+    };
+    setPayItemsState(newPayItems);
+    setStep((prev) => prev + 1);
+  };
 
   const onPersonClicked = () => {
     setPersonState(true);
@@ -286,20 +234,6 @@ const Payment = () => {
       setTotalAmount(total);
     }
   }, [data]);
-
-  const handleNextStep = () => {
-    if (step < 2) setStep(step + 1);
-  };
-
-  const handlePreviousStep = () => {
-    if (step > 1) setStep(step - 1);
-  };
-
-  const onSubmit = async () => {
-    if (step === 2) {
-      //await handlePaymentRequest();
-    }
-  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -322,7 +256,7 @@ const Payment = () => {
               </ItemPriceDetail>
             </CartItem>
           ))}
-          <Form>
+          <Form onSubmit={handleSubmit(handlePaymentRegister)}>
             <FormGroup>
               <Label>주문자명</Label>
               <Input
@@ -350,36 +284,40 @@ const Payment = () => {
               />
               {errors.email && <span>{errors.email.message}</span>}
             </FormGroup>
+
+            <BoxTitle>사용권 유형</BoxTitle>
+            <BoxWrapper>
+              <Box onClick={onPersonClicked} isActive={personState}>
+                <input
+                  type="radio"
+                  checked={personState}
+                  onChange={onPersonClicked}
+                />
+                <span>개인 사용권</span>
+                <p>
+                  필명이 작품에 반드시 표시되어야 해요. 본인만 사용 가능하고,
+                  공유할 수 없어요. 여러 작품에 사용 가능해요. 작품마다 다 른
+                  필명을 사용할 경우, 모든 필명을 입력 해주세요.
+                </p>
+              </Box>
+              <Box onClick={onInstitutionClicked} isActive={institutionState}>
+                <input
+                  type="radio"
+                  checked={institutionState}
+                  onChange={onInstitutionClicked}
+                />
+                <span>기업 사용권</span>
+                <p>
+                  등록한 1개의 작품에만 사용할 수 있어 요. 등록한 작품명과 실제
+                  사용 작품명이 반 드시 일치해야 해요. 등록한 작품을 작업하는
+                  모든 작가가 사 용할 수 있어요.
+                </p>
+              </Box>
+            </BoxWrapper>
+            <ButtonWrapper>
+              <PurchaseButton>다음</PurchaseButton>
+            </ButtonWrapper>
           </Form>
-          <BoxTitle>사용권 유형</BoxTitle>
-          <BoxWrapper>
-            <Box onClick={onPersonClicked} isActive={personState}>
-              <input
-                type="radio"
-                checked={personState}
-                onChange={onPersonClicked}
-              />
-              <span>개인 사용권</span>
-              <p>
-                필명이 작품에 반드시 표시되어야 해요. 본인만 사용 가능하고,
-                공유할 수 없어요. 여러 작품에 사용 가능해요. 작품마다 다 른
-                필명을 사용할 경우, 모든 필명을 입력 해주세요.
-              </p>
-            </Box>
-            <Box onClick={onInstitutionClicked} isActive={institutionState}>
-              <input
-                type="radio"
-                checked={institutionState}
-                onChange={onInstitutionClicked}
-              />
-              <span>기업 사용권</span>
-              <p>
-                등록한 1개의 작품에만 사용할 수 있어 요. 등록한 작품명과 실제
-                사용 작품명이 반 드시 일치해야 해요. 등록한 작품을 작업하는 모든
-                작가가 사 용할 수 있어요.
-              </p>
-            </Box>
-          </BoxWrapper>
         </>
       )}
 
@@ -403,16 +341,6 @@ const Payment = () => {
           <TossWidget />
         </>
       )}
-
-      <ButtonWrapper>
-        {step < 2 ? (
-          <PurchaseButton onClick={handleNextStep}>다음</PurchaseButton>
-        ) : (
-          <PurchaseButton onClick={handleSubmit(onSubmit)}>
-            주문하기
-          </PurchaseButton>
-        )}
-      </ButtonWrapper>
     </Wrapper>
   ) : (
     <div>구매할 상품이 없습니다.</div>
