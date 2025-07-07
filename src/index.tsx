@@ -87,7 +87,7 @@ input{
 }
 `;
 
-axios.defaults.baseURL = "https://api.onetool.co.kr";
+axios.defaults.baseURL = "https://api.meteorfish.site";
 axios.defaults.withCredentials = true;
 
 const queryClient = new QueryClient({
